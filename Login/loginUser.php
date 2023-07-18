@@ -21,17 +21,22 @@
 include "../bdColombiaTravel/conexion.php";
 
 session_start();
-$email_user = $_POST['email_user'];
-$password_user = $_POST['password_user'];
+$correo_persona = $_POST['correo_persona'];
+$contrasena_persona = $_POST['contrasena_persona'];
 
-$consulta = "SELECT * FROM userdata WHERE email_user  = '$email_user' AND password_user = '$password_user'";
+$consulta = "SELECT * FROM persona WHERE correo_persona  = '$correo_persona' AND contrasena_persona = '$contrasena_persona'";
 
 $resultado = mysqli_query(conexion(), $consulta);
-$filas = mysqli_num_rows($resultado);
+$filas = mysqli_fetch_array($resultado);
 
 if ($filas) {
-  $_SESSION["email_user"] = $email_user;
-  header("Location: ../User/homeUser.php");
+  if ($filas['id_rol_persona'] == 1) {
+    // $_SESSION["correo_persona"] = $correo_persona;
+    header("Location: ../Administrator/homeAdministrator.html");
+  } else if ($filas['id_rol_persona'] == 2) {
+    $_SESSION["correo_persona"] = $correo_persona;
+    header("Location: ../Tourist/homeUser.php");
+  }
 } else {
 ?>
   <script>

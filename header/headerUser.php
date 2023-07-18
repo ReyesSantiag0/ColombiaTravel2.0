@@ -50,7 +50,7 @@
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
           <div class="dropdown">
-            <a href="../User/homeUser.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <a href="../Tourist/homeUser.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
               <img src="../img/colombia.png" width="50" height="50" alt="">
               <span class="fs-5">ColombiaTravel</span>
             </a>
@@ -59,20 +59,17 @@
           <form class=" mx-auto" role="search">
             <input type="search" class="form-control" placeholder="Buscar actividad" aria-label="Search">
           </form>
-
           <div class="dropdown">
             <div class="dropdown me-auto">
               <a href="#" class=" link-dark  dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
                 <img src="../img/user.png" alt="mdo" width="32" height="32" class="rounded-circle">
               </a>
               <ul class="dropdown-menu text-small">
-                <li><a class="dropdown-item" href="../User/dataUser.php">Mi cuenta</a></li>
-                <li><a class="dropdown-item" href="">Mis Actividades Turísticas</a></li>
-                <li><a class="dropdown-item" href="">Vuelvete guía turístico</a></li>
+                <li><a class="dropdown-item" href="../Tourist/profileTourist.php">Mi cuenta</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="../Login/loginUser.html">Cerrar sesión</a></li>
+                <li><a class="dropdown-item" href="../index.php">Cerrar sesión</a></li>
               </ul>
             </div>
           </div>
@@ -80,6 +77,7 @@
       </div>
     </header>
   </main>
+
 </body>
 
 </html>
