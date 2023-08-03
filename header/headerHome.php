@@ -66,12 +66,11 @@
               </a>
               <ul class="dropdown-menu text-small">
                 <li><a class="dropdown-item" href="./Login/loginUser.html">Iniciar sesión</a></li>
-                <li><a class="dropdown-item" href="./User/userRegister.php">Regístrate</a></li>
+                <li><a class="dropdown-item" href="./Tourist/userRegister.php">Regístrate</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="./User/userRegister.php">Vuelvete guía turístico</a></li>
-                <li><a class="dropdown-item" href="">Ayuda</a></li>
+                <li><a class="dropdown-item" href="./tourGuide/tourGuideRegister.php">Vuelvete guía turístico</a></li>
               </ul>
             </div>
           </div>

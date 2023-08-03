@@ -13,18 +13,16 @@
 </head>
 
 <body>
-  <section class="vh-100" style="background-image: url(../img/); background-size: cover;">
+  <section class="vh-100" style="background-image: url(../img/bg04.jpg); background-size: cover;">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100 ">
         <div class="col col-xl-10">
           <div class="card" style="border-radius: 1rem;">
             <div class="row g-0">
-              <div class="col-md-6 col-lg-5 d-none d-md-block" style=" border-radius: 1rem 0 0 1rem; background-image: url(../img/); background-size: cover;">
-                <!-- <img src="../img/coverRegistroGuia.png" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; background-size: cover;" /> -->
+              <div class="col-md-6 col-lg-5 d-none d-md-block" style=" border-radius: 1rem 0 0 1rem; background-image: url(../img/imgRegistroGuia.jpg); background-size: cover;">
               </div>
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="form-container">
-                  <!-- <img src="../img/colombia.png" width="40" alt=""> -->
                   <h3 class="title">Registrate en Colombia Travel</h3>
                   <form class="form-horizontal" aion="" method="post">
                     <div class="form-group">
@@ -74,7 +72,7 @@
                     <div class="d-flex justify-content-around align-items-center">
                       <span class="signin-link">¿Ya tienes una cuenta? <a href="../Login/loginUser.html">Iniciar
                           sesión</a></span>
-                      <span class="signin-link position-relative">¿Eres guía turístico? <a href="">Registrate</a></span>
+                      <span class="signin-link position-relative">¿Eres turísta? <a href="../Tourist/userRegister.php">Registrate</a></span>
                     </div>
                   </form>
                 </div>
@@ -93,3 +91,85 @@
 </body>
 
 </html>
+
+
+
+<?php
+
+include "../bdColombiaTravel/conexion.php";
+
+if (!empty($_POST)) {
+  if (empty($_POST['nombre_persona']) || empty($_POST['apellido_persona']) || empty($_POST['edad_persona']) || empty($_POST['genero_persona']) || empty($_POST['telefono_persona']) || empty($_POST['correo_persona']) || empty($_POST['contrasena_persona']) || empty($_POST['contrasena_persona_check']) || !isset($_POST['terminos'])) {
+?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Todos los campos son obligatorios',
+      })
+    </script>
+    <?php
+  } else {
+
+    $nombre_persona = $_POST['nombre_persona'];
+    $apellido_persona = $_POST['apellido_persona'];
+    $edad_persona = $_POST['edad_persona'];
+    $genero_persona = $_POST['genero_persona'];
+    $telefono_persona = $_POST['telefono_persona'];
+    $correo_persona = $_POST['correo_persona'];
+    $contrasena_persona = $_POST['contrasena_persona'];
+
+    if ($_POST['contrasena_persona'] != $_POST['contrasena_persona_check']) {
+    ?>
+      <script>
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Las contraseñas no coinciden',
+        })
+      </script>
+      <?php
+    } else {
+      $query = mysqli_query(conexion(), "SELECT * FROM persona where correo_persona = '$correo_persona'");
+      $result = mysqli_fetch_array($query);
+      if ($result > 0) {
+      ?>
+        <script>
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'El correo ya existe',
+          })
+        </script>
+        <?php
+      } else {
+        $query_insert_persona = mysqli_query(conexion(), "INSERT INTO persona (nombre_persona, apellido_persona, edad_persona, genero_persona, telefono_persona, correo_persona, contrasena_persona, id_rol_persona) 
+        VALUES ('$nombre_persona','$apellido_persona','$edad_persona','$genero_persona','$telefono_persona', '$correo_persona', '$contrasena_persona', 3)");
+
+        $query_id_persona = mysqli_query(conexion(), "SELECT MAX(id_persona) AS id FROM persona");
+        $result_id = mysqli_fetch_array($query_id_persona);
+
+        $query_insert_guia = mysqli_query(conexion(), "INSERT INTO guia_turistico(id_persona) VALUES ($result_id[0])");
+
+        if ($query_insert_guia) {
+        ?>
+          <script>
+            Swal.fire('Usuario creado correctamente')
+          </script>
+        <?php
+        } else {
+        ?>
+          <script>
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'No fué posible crear el usuario',
+            })
+          </script>
+<?php
+        }
+      }
+    }
+  }
+}
+?>

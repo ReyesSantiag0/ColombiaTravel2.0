@@ -146,7 +146,13 @@ if (!empty($_POST)) {
         $query_insert_client = mysqli_query(conexion(), "INSERT INTO persona (nombre_persona, apellido_persona, edad_persona, genero_persona, telefono_persona, correo_persona, contrasena_persona, id_rol_persona) 
         VALUES ('$nombre_persona','$apellido_persona','$edad_persona','$genero_persona','$telefono_persona', '$correo_persona', '$contrasena_persona', 2)");
 
-        if ($query_insert_client) {
+        $query_id_persona = mysqli_query(conexion(), "SELECT MAX(id_persona) AS id FROM persona");
+        $result_id = mysqli_fetch_array($query_id_persona);
+
+        $query_insert_turista = mysqli_query(conexion(), "INSERT INTO turista(id_persona) VALUES ($result_id[0])");
+
+
+        if ($query_insert_turista) {
         ?>
           <script>
             Swal.fire('Usuario creado correctamente')
