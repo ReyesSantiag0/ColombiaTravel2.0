@@ -9,6 +9,16 @@
   <link rel="stylesheet" type="text/css" href="../Bootstrap/css/bootstrap.min.css">
   <title>Home</title>
   <link rel="icon" type="image/x-icon" href="../img/colombia.png">
+
+  <link rel="icon" type="image/x-icon" href="../img/colombia.png">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <link href="../Bootstrap/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../Bootstrap/css/nucleo-svg.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="../Bootstrap/css/nucleo-svg.css" rel="stylesheet" />
+  <link id="pagestyle" href="../Bootstrap/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+
 </head>
 
 <body>
@@ -72,372 +82,187 @@
     </symbol>
   </svg>
 
-  <header>
-    <?php
-    require_once("../header/headerUser.php");
-    ?>
-  </header>
-  <main>
-    <div class="container py-2 px-3">
+
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand m-0" href="./homeUser.php">
+              <img src="../img/colombia.png" class="navbar-brand-img h-100" alt="Logotipo Colombia Travel">
+              <span class="ms-1 font-weight-bold">Colombia Travel</span>
+            </a>
+          </div>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group">
+              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" placeholder="Buscar">
+            </div>
+          </div>
+          <ul class="navbar-nav  justify-content-end">
+            <li class="nav-item d-flex align-items-center">
+              <a class="btn btn-outline-primary btn-sm mb-0 me-3" href="">Buscar</a>
+            </li>
+            <li class="nav-item dropdown pe-2 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body font-weight-bold px-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none"> Sesión turista</span>
+              </a>
+              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="./profileTourist.php">
+                    <div class="d-flex py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">Mi cuenta</span>
+                        </h6>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <hr class="horizontal dark my-1">
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="../Login/loginUser.html">
+                    <div class="d-flex py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">Cerrar sesión</span>
+                        </h6>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item px-3 d-flex align-items-center">
+              <a href="./touristData.php" class="nav-link text-body p-0">
+                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container py-2 px-3 border-bottom">
       <div id="custom-cards">
-        <h2 class="pb-2 border-bottom">Tendencias</h2>
+        <h2 class="pb-2 border-bottom">
+          Catálogo
+        </h2>
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(../img/img01.jpg);">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Caminata por Cartagena de Indias!</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2 color-white" width="1em" height="1em">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small>Cartagena de Indias</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small>3d</small>
-                  </li>
-                </ul>
-                <div>
-                  <a href="./activityUser.php" class="stretched-link"></a>
+          <?php
+          include "../bdColombiaTravel/conexion.php";
+
+          $sql = ("SELECT * FROM actividad_turistica JOIN fotos_actividad_turistica JOIN guia_turistico JOIN persona WHERE actividad_turistica.id_foto_actividad = fotos_actividad_turistica.id_foto_actividad AND actividad_turistica.id_guia = guia_turistico.id_guia AND persona.id_persona = guia_turistico.id_persona");
+          $query = mysqli_query(conexion(), $sql);
+          $i = 0;
+
+          while ($dato = mysqli_fetch_array($query)) {
+            $i++;
+            $nombre_actividad = $dato['nombre_actividad'];
+            $resena_actividad = $dato['resena_actividad'];
+            $foto01_actividad = $dato['foto01_actividad'];
+            $ubicacion_actividad = $dato['ubicacion_actividad'];
+            $fecha_actividad = $dato['fecha_actividad'];
+            $foto_persona = $dato['foto_persona'];
+            $id_actividad = $dato['id_actividad'];
+          ?>
+            <div class="col">
+              <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(data:image;base64,<?php echo base64_encode($foto01_actividad); ?>);">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                  <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-white">
+                    <?php echo $nombre_actividad; ?>
+                  </h3>
+                  <ul class="d-flex list-unstyled mt-auto">
+                    <li class="me-auto">
+                      <img src="data:image;base64,<?php echo base64_encode($foto01_actividad); ?>" alt="Guía turístico" width="32" height="32" class="rounded-circle border border-white">
+                    </li>
+                    <li class="d-flex align-items-center me-3">
+                      <svg class="bi me-2 color-white" width="1em" height="1em">
+                        <use xlink:href="#geo-fill" />
+                      </svg>
+                      <small>
+                        <?php echo $ubicacion_actividad; ?>
+                      </small>
+                    </li>
+                    <li class="d-flex align-items-center">
+                      <svg class="bi me-2" width="1em" height="1em">
+                        <use xlink:href="#calendar3" />
+                      </svg>
+                      <small>
+                        <?php echo $fecha_actividad; ?>
+                      </small>
+                    </li>
+                  </ul>
+                  <div>
+                    <a href="./activityUser.php?id_actividad=<?php echo $dato['id_actividad'] ?>" class="stretched-link"></a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(../img/img02.jpg);">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Tour Laguna de la Cocha</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small>El Encano - Nariño</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small>4d</small>
-                  </li>
-                </ul>
-                <div>
-                  <a href="./activityUser.php" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style=" width: 10; background-image: url(../img/img03.jpg);">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Tour Caño Cristales</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small>Sierra de la Macaréna</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small>5d</small>
-                  </li>
-                </ul>
-                <div>
-                  <a href="./activityUser.php" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(../img/img04.jpg);">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Prueba comida callejera en Bogotá D.C.</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small>Bogotá D.C.</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small>1d</small>
-                  </li>
-                </ul>
-                <div>
-                  <a href="./activityUser.php" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(../img//img05.jpg);">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Recorrido por el Santuario de las Lajas - Ipiales,
-                  Nariño</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small>Ipiales - Nariño</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small>4d</small>
-                  </li>
-                </ul>
-                <div>
-                  <a href="./activityUser.php" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(../img/img06.jpg);">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Tour Guatapé, Piedra del Peñol!</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small>Guatapé</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small>5d</small>
-                  </li>
-                </ul>
-                <div>
-                  <a href="./activityUser.php" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(../img/img07.jpg);">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Recorrido por las calles de Guatapé</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small>Guatapé</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small>8d</small>
-                  </li>
-                </ul>
-                <div>
-                  <a href="./activityUser.php" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(../img/img08.jpg);">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Redorrido gastronómico por Cali</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small>Cali</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small>1d</small>
-                  </li>
-                </ul>
-                <div>
-                  <a href="./activityUser.php" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(../img/img09.jpg);">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Tour en Bici por Santa Marta</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small>Santa Marta</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small>1d</small>
-                  </li>
-                </ul>
-                <div>
-                  <a href="./activityUser.php" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(../img/img10.jpg);">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Visita el mercado de Corabastos</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small>Bogotá D.C.</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small>11d</small>
-                  </li>
-                </ul>
-                <div>
-                  <a href="./activityUser.php" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(../img/img11.jpg);">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Prueba la comida típica del mercado Bazurto</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small>Cartagena de Indias</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small>1d</small>
-                  </li>
-                </ul>
-                <div>
-                  <a href="./activityUser.php" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url(../img/img12.jpg);">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Campamento desierto de la Tatacoa</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small>Neiva - Huila</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small>1d</small>
-                  </li>
-                </ul>
-                <div>
-                  <a href="./activityUser.php" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <?php
+          }
+          ?>
         </div>
       </div>
     </div>
+
+    <footer>
+      <footer class="footer pt-3">
+        <div class="container-fluid">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+              <div class="copyright text-center text-sm text-muted text-lg-start">
+                ©
+                <script>
+                  document.write(new Date().getFullYear())
+                </script>,
+                Desarrollado por
+                <a href="" class="font-weight-bold" target="_blank">Santiago Reyes.</a>
+                Todos los derechos reservados
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                <li class="nav-item">
+                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
+                </li>
+                <li class="nav-item">
+                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
+                </li>
+                <li class="nav-item">
+                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
+                </li>
+                <li class="nav-item">
+                  <a href="" class="nav-link pe-0 text-muted" target="_blank">Información</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </footer>
+
+    <script src="../Bootstrap/js/popper.min.js"></script>
+    <script src="../Bootstrap/js/bootstrap.min.js"></script>
+    <script src="../Bootstrap/js/perfect-scrollbar.min.js"></script>
+    <script src="../Bootstrap/js/smooth-scrollbar.min.js"></script>
+    <script>
+      var win = navigator.platform.indexOf('Win') > -1;
+      if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+          damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+      }
+    </script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="../Bootstrap/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
   </main>
-
-  <footer>
-    <?php
-    require_once("../footer/footer.php");
-    ?>
-  </footer>
-
-  <script type="text/javascript" src="../Bootstrap/js/bootstrap.min.js"></script>
-
 </body>
 
 </html>

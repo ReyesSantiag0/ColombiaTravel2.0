@@ -11,6 +11,7 @@ $consulta_guia = mysqli_query(conexion(), "SELECT persona.id_persona FROM person
 $resultado = mysqli_fetch_array($consulta_guia);
 
 $consultabuscar = mysqli_query(conexion(), "SELECT * FROM persona JOIN guia_turistico ON persona.id_persona = guia_turistico.id_persona WHERE guia_turistico.id_persona=$resultado[0]");
+
 while ($mostrar = mysqli_fetch_array($consultabuscar)) {
   $nombre_persona = $mostrar['nombre_persona'];
   $apellido_persona = $mostrar['apellido_persona'];
@@ -251,25 +252,13 @@ while ($mostrar = mysqli_fetch_array($consultabuscar)) {
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Sesión guía turístico</span>
               </a>
-              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="../User/homeUser.php">
-                    <div class="d-flex py-1">
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">Modo turista</span>
-                        </h6>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <hr class="horizontal dark my-1">
-                <li class="mb-2">
+              <ul class="dropdown-menu  dropdown-menu-end  px-2 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <li>
                   <a class="dropdown-item border-radius-md" href="../Login/loginUser.html">
-                    <div class="d-flex py-1">
+                    <div class="d-flex">
                       <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">Cerrar sesión</span>
+                        <h6 class="text-sm ">
+                          Cerrar sesión
                         </h6>
                       </div>
                     </div>
@@ -608,7 +597,6 @@ if (isset($_POST['btnmodificar'])) {
   $ocupacion_guia_update = $_POST['ocupacion_guia'];
   $habilidad_guia_update = $_POST['habilidad_guia'];
   $contrasena_persona_update = $_POST['contrasena_persona'];
-  // $foto_persona_update = $_POST['foto_persona'];
 
 
 

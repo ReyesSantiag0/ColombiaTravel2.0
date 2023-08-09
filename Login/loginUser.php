@@ -32,7 +32,7 @@ $filas = mysqli_fetch_array($resultado);
 if ($filas) {
   if ($filas['id_rol_persona'] == 1) {
     $_SESSION["correo_persona"] = $correo_persona;
-    header("Location: ../Administrator/homeAdministrator.html");
+    header("Location: ../Administrator/homeAdministrator.php");
   } else if ($filas['id_rol_persona'] == 2) {
     $_SESSION["correo_persona"] = $correo_persona;
     header("Location: ../Tourist/homeUser.php");

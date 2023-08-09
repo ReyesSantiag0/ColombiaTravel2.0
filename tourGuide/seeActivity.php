@@ -248,31 +248,18 @@ while ($dato = mysqli_fetch_array($query)) {
             <li class="nav-item d-flex align-items-center">
               <a class="btn btn-outline-primary btn-sm mb-0 me-3" href="">Buscar</a>
             </li>
-
             <li class="nav-item dropdown pe-2 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body font-weight-bold px-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Sesión guía turístico</span>
               </a>
-              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="../User/homeUser.php">
-                    <div class="d-flex py-1">
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">Modo turista</span>
-                        </h6>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <hr class="horizontal dark my-1">
-                <li class="mb-2">
+              <ul class="dropdown-menu  dropdown-menu-end  px-2 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <li>
                   <a class="dropdown-item border-radius-md" href="../Login/loginUser.html">
-                    <div class="d-flex py-1">
+                    <div class="d-flex">
                       <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">Cerrar sesión</span>
+                        <h6 class="text-sm ">
+                          Cerrar sesión
                         </h6>
                       </div>
                     </div>
@@ -295,7 +282,7 @@ while ($dato = mysqli_fetch_array($query)) {
         <div class="col-12 mt-4">
           <div class="card mb-4">
 
-            <div class="container  py-2 px-3">
+            <div class="container py-2 px-3">
               <div id="custom-cards">
                 <h2 class="pb-2 border-bottom">
                   <?php echo $nombre_actividad; ?>
@@ -450,41 +437,41 @@ while ($dato = mysqli_fetch_array($query)) {
           </div>
         </div>
       </div>
+    </div>
 
-      <footer class="footer pt-3  ">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-start">
-                ©
-                <script>
-                  document.write(new Date().getFullYear())
-                </script>,
-                Desarrollado por
-                <a href="" class="font-weight-bold" target="_blank">Santiago Reyes.</a>
-                Todos los derechos reservados
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                <li class="nav-item">
-                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link pe-0 text-muted" target="_blank">Información</a>
-                </li>
-              </ul>
+    <footer class="footer pt-3  ">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-start">
+              ©
+              <script>
+                document.write(new Date().getFullYear())
+              </script>,
+              Desarrollado por
+              <a href="" class="font-weight-bold" target="_blank">Santiago Reyes.</a>
+              Todos los derechos reservados
             </div>
           </div>
+          <div class="col-lg-6">
+            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+              <li class="nav-item">
+                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link pe-0 text-muted" target="_blank">Información</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   </main>
 
   <!-- MENÚ DE CONFIGURACIÓN -->

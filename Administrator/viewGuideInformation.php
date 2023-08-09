@@ -1,13 +1,32 @@
 <?php
 include "../bdColombiaTravel/conexion.php";
 session_start();
-$correo_persona = $_SESSION['correo_persona'];
+$id = $_GET['id'];
 
-$consulta_guia = mysqli_query(conexion(), "SELECT persona.id_persona FROM persona WHERE persona.correo_persona = '$correo_persona'");
-$resultado = mysqli_fetch_array($consulta_guia);
+
+$consultabuscar = mysqli_query(conexion(), "SELECT * FROM persona JOIN guia_turistico ON persona.id_persona = guia_turistico.id_persona WHERE guia_turistico.id_persona=$id");
+while ($mostrar = mysqli_fetch_array($consultabuscar)) {
+  $nombre_persona = $mostrar['nombre_persona'];
+  $apellido_persona = $mostrar['apellido_persona'];
+  $edad_persona = $mostrar['edad_persona'];
+  $genero_persona = $mostrar['genero_persona'];
+  $telefono_persona = $mostrar['telefono_persona'];
+  $correo_persona = $mostrar['correo_persona'];
+  $contrasena_persona = $mostrar['contrasena_persona'];
+  $foto_persona = $mostrar['foto_persona'];
+
+
+  $departamento_guia = $mostrar['departamento_guia'];
+  $municipio_guia = $mostrar['municipio_guia'];
+  $direccion_guia = $mostrar['direccion_guia'];
+  $idioma_guia = $mostrar['idioma_guia'];
+  $ocupacion_guia = $mostrar['ocupacion_guia'];
+  $descripcion_guia = $mostrar['descripcion_guia'];
+  $cedula_guia = $mostrar['cedula_guia'];
+  $habilidad_guia = $mostrar['habilidad_guia'];
+}
 
 ?>
-
 
 
 <!DOCTYPE html>
@@ -18,7 +37,7 @@ $resultado = mysqli_fetch_array($consulta_guia);
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" type="image/png" href="">
   <title>
-    Home guía turístico
+    Información guía turístico
   </title>
   <link rel="icon" type="image/x-icon" href="../img/colombia.png">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -28,6 +47,7 @@ $resultado = mysqli_fetch_array($consulta_guia);
   <link href="../Bootstrap/css/nucleo-svg.css" rel="stylesheet" />
   <link id="pagestyle" href="../Bootstrap/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -35,7 +55,7 @@ $resultado = mysqli_fetch_array($consulta_guia);
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="./homeGuide.php">
+      <a class="navbar-brand m-0" href="./homeAdministrator.php">
         <img src="../img/colombia.png" class="navbar-brand-img h-100" alt="Logotipo Colombia Travel">
         <span class="ms-1 font-weight-bold">Colombia Travel</span>
       </a>
@@ -44,10 +64,10 @@ $resultado = mysqli_fetch_array($consulta_guia);
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Actividades Turísticas</h6>
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Administrar usuarios</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link  active" href="./homeGuide.php">
+          <a class="nav-link  active" href="./homeAdministrator.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -64,11 +84,11 @@ $resultado = mysqli_fetch_array($consulta_guia);
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Listar actividades</span>
+            <span class="nav-link-text ms-1">Guías turísticos</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="./registerActivity.php">
+          <a class="nav-link  " href="./touristAdministrator.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -85,20 +105,26 @@ $resultado = mysqli_fetch_array($consulta_guia);
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Registrar actividades</span>
+            <span class="nav-link-text ms-1">Turístas</span>
           </a>
         </li>
+
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Administradores</h6>
+        </li>
         <li class="nav-item">
-          <a class="nav-link  " href="./updateActivity.php">
+          <a class="nav-link  " href="./administrators.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                  <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                  <g transform="translate(-1717.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
                     <g transform="translate(1716.000000, 291.000000)">
-                      <g transform="translate(453.000000, 454.000000)">
-                        <path class="color-background opacity-6" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z">
+                      <g transform="translate(1.000000, 0.000000)">
+                        <path class="color-background opacity-6" d="M45,0 L26,0 C25.447,0 25,0.447 25,1 L25,20 C25,20.379 25.214,20.725 25.553,20.895 C25.694,20.965 25.848,21 26,21 C26.212,21 26.424,20.933 26.6,20.8 L34.333,15 L45,15 C45.553,15 46,14.553 46,14 L46,1 C46,0.447 45.553,0 45,0 Z">
                         </path>
-                        <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
+                        <path class="color-background" d="M22.883,32.86 C20.761,32.012 17.324,31 13,31 C8.676,31 5.239,32.012 3.116,32.86 C1.224,33.619 0,35.438 0,37.494 L0,41 C0,41.553 0.447,42 1,42 L25,42 C25.553,42 26,41.553 26,41 L26,37.494 C26,35.438 24.776,33.619 22.883,32.86 Z">
+                        </path>
+                        <path class="color-background" d="M13,28 C17.432,28 21,22.529 21,18 C21,13.589 17.411,10 13,10 C8.589,10 5,13.589 5,18 C5,22.529 8.568,28 13,28 Z">
                         </path>
                       </g>
                     </g>
@@ -106,60 +132,16 @@ $resultado = mysqli_fetch_array($consulta_guia);
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Actualizar actividades</span>
+            <span class="nav-link-text ms-1">Administradores</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link  " href="./deleteActivity.php">
-            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                  <g transform="translate(-2319.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                    <g transform="translate(1716.000000, 291.000000)">
-                      <g transform="translate(603.000000, 0.000000)">
-                        <path class="color-background" d="M22.7597136,19.3090182 L38.8987031,11.2395234 C39.3926816,10.9925342 39.592906,10.3918611 39.3459167,9.89788265 C39.249157,9.70436312 39.0922432,9.5474453 38.8987261,9.45068056 L20.2741875,0.1378125 L20.2741875,0.1378125 C19.905375,-0.04725 19.469625,-0.04725 19.0995,0.1378125 L3.1011696,8.13815822 C2.60720568,8.38517662 2.40701679,8.98586148 2.6540352,9.4798254 C2.75080129,9.67332903 2.90771305,9.83023153 3.10122239,9.9269862 L21.8652864,19.3090182 C22.1468139,19.4497819 22.4781861,19.4497819 22.7597136,19.3090182 Z">
-                        </path>
-                        <path class="color-background opacity-6" d="M23.625,22.429159 L23.625,39.8805372 C23.625,40.4328219 24.0727153,40.8805372 24.625,40.8805372 C24.7802551,40.8805372 24.9333778,40.8443874 25.0722402,40.7749511 L41.2741875,32.673375 L41.2741875,32.673375 C41.719125,32.4515625 42,31.9974375 42,31.5 L42,14.241659 C42,13.6893742 41.5522847,13.241659 41,13.241659 C40.8447549,13.241659 40.6916418,13.2778041 40.5527864,13.3472318 L24.1777864,21.5347318 C23.8390024,21.7041238 23.625,22.0503869 23.625,22.429159 Z">
-                        </path>
-                        <path class="color-background opacity-6" d="M20.4472136,21.5347318 L1.4472136,12.0347318 C0.953235098,11.7877425 0.352562058,11.9879669 0.105572809,12.4819454 C0.0361450918,12.6208008 6.47121774e-16,12.7739139 0,12.929159 L0,30.1875 L0,30.1875 C0,30.6849375 0.280875,31.1390625 0.7258125,31.3621875 L19.5528096,40.7750766 C20.0467945,41.0220531 20.6474623,40.8218132 20.8944388,40.3278283 C20.963859,40.1889789 21,40.0358742 21,39.8806379 L21,22.429159 C21,22.0503869 20.7859976,21.7041238 20.4472136,21.5347318 Z">
-                        </path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-            <span class="nav-link-text ms-1">Eliminar actividades</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link  " href="./tours.html">
-            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                  <g transform="translate(-2020.000000, -442.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                    <g transform="translate(1716.000000, 291.000000)">
-                      <g transform="translate(304.000000, 151.000000)">
-                        <polygon class="color-background opacity-6" points="18.0883333 15.7316667 11.1783333 8.82166667 13.3333333 6.66666667 6.66666667 0 0 6.66666667 6.66666667 13.3333333 8.82166667 11.1783333 15.315 17.6716667">
-                        </polygon>
-                        <path class="color-background opacity-6" d="M31.5666667,23.2333333 C31.0516667,23.2933333 30.53,23.3333333 30,23.3333333 C29.4916667,23.3333333 28.9866667,23.3033333 28.48,23.245 L22.4116667,30.7433333 L29.9416667,38.2733333 C32.2433333,40.575 35.9733333,40.575 38.275,38.2733333 L38.275,38.2733333 C40.5766667,35.9716667 40.5766667,32.2416667 38.275,29.94 L31.5666667,23.2333333 Z">
-                        </path>
-                        <path class="color-background" d="M33.785,11.285 L28.715,6.215 L34.0616667,0.868333333 C32.82,0.315 31.4483333,0 30,0 C24.4766667,0 20,4.47666667 20,10 C20,10.99 20.1483333,11.9433333 20.4166667,12.8466667 L2.435,27.3966667 C0.95,28.7083333 0.0633333333,30.595 0.00333333333,32.5733333 C-0.0583333333,34.5533333 0.71,36.4916667 2.11,37.89 C3.47,39.2516667 5.27833333,40 7.20166667,40 C9.26666667,40 11.2366667,39.1133333 12.6033333,37.565 L27.1533333,19.5833333 C28.0566667,19.8516667 29.01,20 30,20 C35.5233333,20 40,15.5233333 40,10 C40,8.55166667 39.685,7.18 39.1316667,5.93666667 L33.785,11.285 Z">
-                        </path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-            <span class="nav-link-text ms-1">Tours</span>
-          </a>
-        </li>
+
+
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Mi Perfil</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="./profileGuide.php">
+          <a class="nav-link  " href="./profileAdministrator.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -188,16 +170,13 @@ $resultado = mysqli_fetch_array($consulta_guia);
         <div class="card-body text-start p-3 w-100">
           <div class="docs-info">
             <h6 class="text-white up mb-0 font-weight-bold text-center">Bienvenido</h6>
-            <p class="text-xs font-weight-bold text-white text-center">Estás dentro de la sesión guía turístico, aquí
-              podras
-              administrar todas
-              tus actividades turísticas. </p>
+            <p class="text-xs font-weight-bold text-white text-center">Estás dentro de la sesión administrador, aquí
+              podras administrar a Colombia Travel. </p>
           </div>
         </div>
       </div>
     </div>
   </aside>
-
 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
@@ -205,9 +184,9 @@ $resultado = mysqli_fetch_array($consulta_guia);
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Página</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Inicio</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Guía turístico</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Actividades Turísticas</h6>
+          <h6 class="font-weight-bolder mb-0">Guía turístico</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -223,7 +202,7 @@ $resultado = mysqli_fetch_array($consulta_guia);
             <li class="nav-item dropdown pe-2 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body font-weight-bold px-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Sesión guía turístico</span>
+                <span class="d-sm-inline d-none">Sesión administrador</span>
               </a>
               <ul class="dropdown-menu  dropdown-menu-end  px-2 me-sm-n4" aria-labelledby="dropdownMenuButton">
                 <li>
@@ -249,70 +228,135 @@ $resultado = mysqli_fetch_array($consulta_guia);
       </div>
     </nav>
 
+
+
     <div class="container-fluid py-4">
-      <div class="row">
-        <form action="POST">
+      <form method="POST" enctype="multipart/form-data">
+        <div class="row">
           <div class="col-12 mt-4">
             <div class="card mb-4">
-              <div class="card-header pb-0 p-3">
-                <h6 class="mb-1">Actividades Turísticas</h6>
-                <p class="text-sm">Visualizar</p>
-              </div>
               <div class="card-body p-3">
                 <div class="row">
-                  <?php
-                  $sql = ("SELECT * FROM actividad_turistica JOIN fotos_actividad_turistica JOIN guia_turistico JOIN persona WHERE actividad_turistica.id_foto_actividad = fotos_actividad_turistica.id_foto_actividad AND actividad_turistica.id_guia = guia_turistico.id_guia AND persona.id_persona = guia_turistico.id_persona AND persona.id_persona = $resultado[0]");
-
-                  $query = mysqli_query(conexion(), $sql);
-                  $i = 0;
-
-                  while ($dato = mysqli_fetch_array($query)) {
-                    $i++;
-                    $nombre_actividad = $dato['nombre_actividad'];
-                    $resena_actividad = $dato['resena_actividad'];
-                    $foto01_actividad = $dato['foto01_actividad'];
-                    $ubicacion_actividad = $dato['ubicacion_actividad'];
-                  ?>
-                    <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
-                      <div class="card card-blog card-plain">
-
-                        <div class="position-relative">
-                          <a class="d-block shadow-xl border-radius-xl">
-                            <img src="data:image;base64,<?php echo base64_encode($foto01_actividad);  ?>" alt="img" class="img-fluid shadow border-radius-xl">
-                          </a>
+                  <div class="col-12 col-xl-4">
+                    <div class="card h-100">
+                      <div class="card-header pb-0 p-3">
+                        <h6 class="mb-0">Datos personales</h6>
+                      </div>
+                      <div class="card-body p-3">
+                        <div class="form-group">
+                          <label>Nombres</label>
+                          <input type="text" class="form-control" placeholder="" id="nombre_persona" name="nombre_persona" value="<?php echo $nombre_persona; ?>">
                         </div>
-
-                        <div class="card-body px-1 pb-0">
-                          <p class="text-gradient text-dark mb-2 text-sm">
-                            Actividad #<?php echo $i; ?>
-                          </p>
-                          <a href="javascript:;">
-                            <h5>
-                              <?php echo $nombre_actividad; ?>
-                          </a>
-                          <p class="mb-4 text-sm">
-                            <?php echo $ubicacion_actividad; ?>
-                          </p>
-                          <p class="mb-4 text-sm">
-                            <?php echo $resena_actividad; ?>
-                          </p>
-
-                          <div class="d-flex align-items-center justify-content-between">
-                            <a href="./seeActivity.php?id_actividad=<?php echo $dato['id_actividad'] ?>" class="btn btn-outline-primary btn-sm mb-0">Ver Actividad</a>
-                          </div>
+                        <div class="form-group">
+                          <label>Apellidos</label>
+                          <input type="text" class="form-control" placeholder="" id="apellido_persona" name="apellido_persona" value="<?php echo $apellido_persona; ?>">
+                        </div>
+                        <div class=" form-group">
+                          <label>Edad</label>
+                          <input type="text" class="form-control" placeholder="" id="edad_persona" name="edad_persona" value="<?php echo $edad_persona; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Género</label>
+                          <select class="form-select" id="genero_persona" name="genero_persona" required>
+                            <option value="" disabled selected>Género</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="Otro">Otro</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label>Teléfono</label>
+                          <input type="" class="form-control" placeholder="" id="telefono_persona" name="telefono_persona" value="<?php echo $telefono_persona; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Correo</label>
+                          <input type="email" class="form-control" placeholder="" id="correo_persona" name="correo_persona" value="<?php echo $correo_persona; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Cedula</label>
+                          <input type="text" class="form-control" placeholder="" id="cedula_guia" name="cedula_guia" value="<?php echo $cedula_guia; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Mi descripción</label>
+                          <textarea name="descripcion_guia" id="descripcion_guia" rows="5" class="form-control" style="resize: none; outline: none;"><?php echo $descripcion_guia; ?></textarea>
                         </div>
                       </div>
                     </div>
-                  <?php
-                  }
-                  ?>
+                  </div>
+                  <div class="col-12 col-xl-4">
+                    <div class="card h-100">
+                      <div class="card-header pb-0 p-3">
+                        <div class="row">
+                          <div class="col-md-8 d-flex align-items-center">
+                            <h6 class="mb-0">Más sobre ti</h6>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-body p-3">
+                        <div class="form-group">
+                          <label>Departamento</label>
+                          <input type="text" class="form-control" placeholder="" id="departamento_guia" name="departamento_guia" value="<?php echo $departamento_guia; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Municipio</label>
+                          <input type="text" class="form-control" placeholder="" id="municipio_guia" name="municipio_guia" value="<?php echo $municipio_guia; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Dirección</label>
+                          <input type="text" class="form-control" placeholder="" id="direccion_guia" name="direccion_guia" value="<?php echo $direccion_guia; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Idioma(s)</label>
+                          <input type="text" class="form-control" placeholder="" id="idioma_guia" name="idioma_guia" value="<?php echo $idioma_guia; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Ocupación</label>
+                          <input type="text" class="form-control" placeholder="" id="ocupacion_guia" name="ocupacion_guia" value="<?php echo $ocupacion_guia; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Cuáles son tus habilidades</label>
+                          <textarea name="habilidad_guia" id="habilidad_guia" rows="5" class="form-control" style="resize: none; outline: none;"><?php echo $habilidad_guia; ?></textarea>
+                        </div>
+                        <div class="form-group">
+                          <label>Fotografía</label>
+                          <input type="file" class="form-control" placeholder="" id="foto_persona" name="foto_persona" required>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-xl-4">
+                    <div class="card h-100">
+                      <div class="card-header pb-0 p-3">
+                        <h6 class="mb-0">Seguridad</h6>
+                      </div>
+                      <div class="card-body p-3">
+                        <div class="form-group">
+                          <label>Contraseña Actual</label>
+                          <input type="text" class="form-control" placeholder="" id="contrasena_persona" name="contrasena_persona" value="<?php echo $contrasena_persona; ?>">
+                        </div>
+                        <!-- <h6 class="text-uppercase text-body text-xs font-weight-bolder">Cambiar contraseña</h6>
+                        <div class="form-group">
+                          <label>Contraseña nueva</label>
+                          <input type="text" class="form-control" placeholder="" id="contrasena_persona" name="contrasena_persona">
+                        </div>
+                        <div class="form-group">
+                          <label>Repetir contraseña nueva</label>
+                          <input type="text" class="form-control" placeholder="" id="" name="">
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row d-flex justify-content-center align-items-center h-100">
+                    <button class="btn btn-sm bg-gradient-primary mt-3 w-15" type="submit" name="btnmodificar">Actualizar</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
+
 
     <footer class="footer pt-3  ">
       <div class="container-fluid">
@@ -347,6 +391,7 @@ $resultado = mysqli_fetch_array($consulta_guia);
         </div>
       </div>
     </footer>
+
   </main>
 
 
@@ -421,3 +466,95 @@ $resultado = mysqli_fetch_array($consulta_guia);
 </body>
 
 </html>
+
+
+<?php
+
+if (isset($_POST['btnmodificar'])) {
+  $nombre_persona_update = $_POST['nombre_persona'];
+  $apellido_persona_update = $_POST['apellido_persona'];
+  $edad_persona_update = $_POST['edad_persona'];
+  $genero_persona_update = $_POST['genero_persona'];
+  $telefono_persona_update = $_POST['telefono_persona'];
+  $correo_persona_update = $_POST['correo_persona'];
+  $cedula_guia_update = $_POST['cedula_guia'];
+  $descripcion_guia_update = $_POST['descripcion_guia'];
+  $departamento_guia_update = $_POST['departamento_guia'];
+  $municipio_guia_update = $_POST['municipio_guia'];
+  $direccion_guia_update = $_POST['direccion_guia'];
+  $idioma_guia_update = $_POST['idioma_guia'];
+  $ocupacion_guia_update = $_POST['ocupacion_guia'];
+  $habilidad_guia_update = $_POST['habilidad_guia'];
+  $contrasena_persona_update = $_POST['contrasena_persona'];
+  // $foto_persona_update = $_POST['foto_persona'];
+
+
+
+  //variables donde se almacenan los valores de nuestra imagen
+  $tamanoArchvio = $_FILES['foto_persona']['size'];
+
+  //se realiza la lectura de la imagen
+  $imagenSubida = fopen($_FILES['foto_persona']['tmp_name'], 'r');
+  $binariosImagen = fread($imagenSubida, $tamanoArchvio);
+
+  //se realiza la consulta correspondiente para guardar los datos
+  $foto_persona_update = mysqli_escape_string(conexion(), $binariosImagen);
+
+
+  $querymodificar = mysqli_query(
+    conexion(),
+
+    "UPDATE persona 
+      SET nombre_persona = '$nombre_persona_update',
+          apellido_persona = '$apellido_persona_update',
+          edad_persona = '$edad_persona_update',
+          genero_persona = '$genero_persona_update',
+          telefono_persona = '$telefono_persona_update',
+          correo_persona = '$correo_persona_update',
+          contrasena_persona = '$contrasena_persona_update',
+          foto_persona = '$foto_persona_update'
+      WHERE id_persona = $id"
+  );
+
+
+  $querymodificar_guia = mysqli_query(
+    conexion(),
+    "UPDATE guia_turistico 
+      SET departamento_guia = '$departamento_guia_update',
+          municipio_guia = '$municipio_guia_update', 
+          direccion_guia = '$direccion_guia_update', 
+          idioma_guia = '$idioma_guia_update', 
+          ocupacion_guia = '$ocupacion_guia_update', 
+          descripcion_guia = '$descripcion_guia_update', 
+          cedula_guia = '$cedula_guia_update',
+          habilidad_guia = '$habilidad_guia_update'
+      WHERE id_persona = $id"
+  );
+
+  if ($querymodificar_guia) {
+?>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: 'Muy bien!!!',
+        text: 'Datos actualizados',
+      }).then(function() {
+        window.location = "./homeAdministrator.php";
+      });
+    </script>
+  <?php
+  } else {
+  ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al actualizar',
+      }).then(function() {
+        window.location = "./homeAdministrator.php";
+      });
+    </script>
+<?php
+  }
+}
+?>

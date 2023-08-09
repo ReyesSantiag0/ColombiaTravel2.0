@@ -23,7 +23,7 @@
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="./homeAdministrator.html">
+      <a class="navbar-brand m-0" href="./homeAdministrator.php">
         <img src="../img/colombia.png" class="navbar-brand-img h-100" alt="Logotipo Colombia Travel">
         <span class="ms-1 font-weight-bold">Colombia Travel</span>
       </a>
@@ -35,7 +35,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Administrar usuarios</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./homeAdministrator.html">
+          <a class="nav-link " href="./homeAdministrator.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -256,7 +256,7 @@
                         </td>
 
                         <td class="align-middle text-center text-sm">
-                          <a href="./SentenceEliminateAdministrator.php?id_admin=<?php echo $dato['id_persona'] ?>" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> <i class="far fa-trash-alt me-2"></i>
+                          <a href="./SentenceEliminateTourist.php?id_turista=<?php echo $dato['id_persona'] ?>" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> <i class="far fa-trash-alt me-2"></i>
                             Eliminar
                           </a>
                         </td>
@@ -271,41 +271,42 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <footer class="footer pt-3  ">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-start">
-                ©
-                <script>
-                  document.write(new Date().getFullYear())
-                </script>,
-                Desarrollado por
-                <a href="" class="font-weight-bold" target="_blank">Santiago Reyes.</a>
-                Todos los derechos reservados
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                <li class="nav-item">
-                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link pe-0 text-muted" target="_blank">Información</a>
-                </li>
-              </ul>
+    <footer class="footer pt-3  ">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-start">
+              ©
+              <script>
+                document.write(new Date().getFullYear())
+              </script>,
+              Desarrollado por
+              <a href="" class="font-weight-bold" target="_blank">Santiago Reyes.</a>
+              Todos los derechos reservados
             </div>
           </div>
+          <div class="col-lg-6">
+            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+              <li class="nav-item">
+                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link pe-0 text-muted" target="_blank">Información</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
+
   </main>
 
 

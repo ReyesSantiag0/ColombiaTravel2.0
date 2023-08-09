@@ -43,6 +43,7 @@ while ($mostrar = mysqli_fetch_array($consultabuscar)) {
   <link href="../Bootstrap/css/nucleo-svg.css" rel="stylesheet" />
   <link id="pagestyle" href="../Bootstrap/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -50,7 +51,7 @@ while ($mostrar = mysqli_fetch_array($consultabuscar)) {
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="./homeAdministrator.html">
+      <a class="navbar-brand m-0" href="./homeAdministrator.php">
         <img src="../img/colombia.png" class="navbar-brand-img h-100" alt="Logotipo Colombia Travel">
         <span class="ms-1 font-weight-bold">Colombia Travel</span>
       </a>
@@ -62,7 +63,7 @@ while ($mostrar = mysqli_fetch_array($consultabuscar)) {
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Administrar usuarios</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./homeAdministrator.html">
+          <a class="nav-link" href="./homeAdministrator.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -295,7 +296,7 @@ while ($mostrar = mysqli_fetch_array($consultabuscar)) {
                         </div>
                         <div class="form-group">
                           <label>Número de identidad</label>
-                          <input type="number" class="form-control" placeholder="" id="identidad_guia" name="identidad_guia" value="<?php echo $numero_identidad_turista; ?>">
+                          <input type="number" class="form-control" placeholder="" id="numero_identidad_turista" name="numero_identidad_turista" value="<?php echo $numero_identidad_turista; ?>">
                         </div>
                         <div class="form-group">
                           <label>Fotografía</label>
@@ -370,8 +371,6 @@ while ($mostrar = mysqli_fetch_array($consultabuscar)) {
         </div>
       </div>
     </footer>
-
-
   </main>
 
 
@@ -446,3 +445,85 @@ while ($mostrar = mysqli_fetch_array($consultabuscar)) {
 </body>
 
 </html>
+
+
+
+<?php
+
+if (isset($_POST['btnmodificar'])) {
+  $nombre_persona_update = $_POST['nombre_persona'];
+  $apellido_persona_update = $_POST['apellido_persona'];
+  $edad_persona_update = $_POST['edad_persona'];
+  $genero_persona_update = $_POST['genero_persona'];
+  $telefono_persona_update = $_POST['telefono_persona'];
+  $correo_persona_update = $_POST['correo_persona'];
+  $contrasena_persona_update = $_POST['contrasena_persona'];
+  $nacionalidad_turista = $_POST['nacionalidad_turista'];
+  $idioma_turista = $_POST['idioma_turista'];
+  $telefono_emergencia_turista = $_POST['telefono_emergencia_turista'];
+  $numero_identidad_turista = $_POST['numero_identidad_turista'];
+
+  //variables donde se almacenan los valores de nuestra imagen
+  $tamanoArchvio = $_FILES['foto_persona']['size'];
+
+  //se realiza la lectura de la imagen
+  $imagenSubida = fopen($_FILES['foto_persona']['tmp_name'], 'r');
+  $binariosImagen = fread($imagenSubida, $tamanoArchvio);
+
+  //se realiza la consulta correspondiente para guardar los datos
+  $foto_persona_update = mysqli_escape_string(conexion(), $binariosImagen);
+
+
+  $querymodificar = mysqli_query(
+    conexion(),
+
+    "UPDATE persona 
+      SET nombre_persona = '$nombre_persona_update',
+          apellido_persona = '$apellido_persona_update',
+          edad_persona = '$edad_persona_update',
+          genero_persona = '$genero_persona_update',
+          telefono_persona = '$telefono_persona_update',
+          correo_persona = '$correo_persona_update',
+          contrasena_persona = '$contrasena_persona_update',
+          foto_persona = '$foto_persona_update'
+      WHERE id_persona = $id"
+  );
+
+
+  $querymodificar_turista = mysqli_query(
+    conexion(),
+    "UPDATE turista 
+      SET nacionalidad_turista = '$nacionalidad_turista',
+      idioma_turista = '$idioma_turista',
+      telefono_emergencia_turista = '$telefono_emergencia_turista',
+      numero_identidad_turista = '$numero_identidad_turista'
+      WHERE id_persona = $id"
+  );
+
+  if ($querymodificar_turista) {
+?>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: 'Muy bien!!!',
+        text: 'Datos actualizados',
+      }).then(function() {
+        window.location = "./touristAdministrator.php";
+      });
+    </script>
+  <?php
+  } else {
+  ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al actualizar',
+      }).then(function() {
+        window.location = "./touristAdministrator.php";
+      });
+    </script>
+<?php
+  }
+}
+?>

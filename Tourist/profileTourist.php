@@ -1,23 +1,3 @@
-<?php
-// include "../bdColombiaTravel/conexion.php";
-// session_start();
-// $email_user = $_SESSION["email_user"];
-// $con = conexion();
-
-// $query_user = mysqli_query($con, "SELECT id_user FROM userdata
-//     WHERE email_user = '$email_user'");
-// $result = mysqli_fetch_array($query_user);
-
-// $querybuscar = mysqli_query($con, "SELECT * FROM userdata WHERE id_user = $result[0]");
-// while ($mostrar = mysqli_fetch_array($querybuscar)) {
-//   $name_user = $mostrar['name_user'];
-//   $email_user = $mostrar['email_user'];
-//   $password_user = $mostrar['password_user'];
-//   $phone_user = $mostrar['phone_user'];
-//   $city_user = $mostrar['city_user'];
-// }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" type="image/png" href="">
   <title>
-    Home administrador
+    Home turista
   </title>
   <link rel="icon" type="image/x-icon" href="../img/colombia.png">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -108,7 +88,7 @@
         <div class="card-body text-start p-3 w-100">
           <div class="docs-info">
             <h6 class="text-white up mb-0 font-weight-bold text-center">Bienvenido</h6>
-            <p class="text-xs font-weight-bold text-white text-center">Estás dentro de la sesión turísta, aquí
+            <p class="text-xs font-weight-bold text-white text-center">Estás dentro de la sesión turista, aquí
               podras administrar tus datos y tus actividades turísticas adquiridas. </p>
           </div>
         </div>
@@ -140,7 +120,7 @@
             <li class="nav-item dropdown pe-2 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body font-weight-bold px-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Sesión turísta</span>
+                <span class="d-sm-inline d-none">Sesión turista</span>
               </a>
               <ul class="dropdown-menu  dropdown-menu-end  px-2 me-sm-n4" aria-labelledby="dropdownMenuButton">
                 <li>

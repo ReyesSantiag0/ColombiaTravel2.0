@@ -245,25 +245,13 @@ while ($mostrar = mysqli_fetch_array($consultabuscar)) {
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Sesión guía turístico</span>
               </a>
-              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="../User/homeUser.php">
-                    <div class="d-flex py-1">
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">Modo turista</span>
-                        </h6>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <hr class="horizontal dark my-1">
-                <li class="mb-2">
+              <ul class="dropdown-menu  dropdown-menu-end  px-2 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <li>
                   <a class="dropdown-item border-radius-md" href="../Login/loginUser.html">
-                    <div class="d-flex py-1">
+                    <div class="d-flex">
                       <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">Cerrar sesión</span>
+                        <h6 class="text-sm ">
+                          Cerrar sesión
                         </h6>
                       </div>
                     </div>
@@ -306,7 +294,7 @@ while ($mostrar = mysqli_fetch_array($consultabuscar)) {
             <div class="nav-wrapper position-relative end-0">
               <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link mb-0 px-0 py-1 active " href="./profileGuide.html" role="tab" aria-selected="true">
+                  <a class="nav-link mb-0 px-0 py-1 active " href="./profileGuide.php" role="tab" aria-selected="true">
                     <svg class="text-dark" width="16px" height="16px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <g transform="translate(-2319.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">

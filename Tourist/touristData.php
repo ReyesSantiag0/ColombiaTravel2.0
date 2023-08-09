@@ -1,3 +1,34 @@
+<?php
+include "../bdColombiaTravel/conexion.php";
+session_start();
+$correo_persona = $_SESSION['correo_persona'];
+
+$consulta_turista = mysqli_query(conexion(), "SELECT persona.id_persona FROM persona WHERE persona.correo_persona = '$correo_persona'");
+$resultado = mysqli_fetch_array($consulta_turista);
+
+$consultabuscar = mysqli_query(conexion(), "SELECT * FROM persona JOIN turista ON persona.id_persona = turista.id_persona WHERE turista.id_persona=$resultado[0]");
+
+while ($mostrar = mysqli_fetch_array($consultabuscar)) {
+  $nombre_persona = $mostrar['nombre_persona'];
+  $apellido_persona = $mostrar['apellido_persona'];
+  $edad_persona = $mostrar['edad_persona'];
+  $genero_persona = $mostrar['genero_persona'];
+  $telefono_persona = $mostrar['telefono_persona'];
+  $correo_persona = $mostrar['correo_persona'];
+  $contrasena_persona = $mostrar['contrasena_persona'];
+  $foto_persona = $mostrar['foto_persona'];
+  $nacionalidad_turista = $mostrar['nacionalidad_turista'];
+  $idioma_turista = $mostrar['idioma_turista'];
+  $telefono_emergencia_turista = $mostrar['telefono_emergencia_turista'];
+  $numero_identidad_turista = $mostrar['numero_identidad_turista'];
+
+  $id_persona = $mostrar['id_persona'];
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" type="image/png" href="">
   <title>
-    Home administrador
+    Mis datos
   </title>
   <link rel="icon" type="image/x-icon" href="../img/colombia.png">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -59,7 +90,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Mi Perfil</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link active " href="./">
+          <a class="nav-link active " href="./touristData.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -88,7 +119,7 @@
         <div class="card-body text-start p-3 w-100">
           <div class="docs-info">
             <h6 class="text-white up mb-0 font-weight-bold text-center">Bienvenido</h6>
-            <p class="text-xs font-weight-bold text-white text-center">Estás dentro de la sesión turísta, aquí
+            <p class="text-xs font-weight-bold text-white text-center">Estás dentro de la sesión turista, aquí
               podras administrar tus datos y tus actividades turísticas adquiridas. </p>
           </div>
         </div>
@@ -120,7 +151,7 @@
             <li class="nav-item dropdown pe-2 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white font-weight-bold px-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Sesión turísta</span>
+                <span class="d-sm-inline d-none">Sesión turista</span>
               </a>
               <ul class="dropdown-menu  dropdown-menu-end  px-2 me-sm-n4" aria-labelledby="dropdownMenuButton">
                 <li>
@@ -153,13 +184,14 @@
         <div class="row gx-4">
           <div class="col-auto">
             <div class="avatar avatar-xl position-relative">
-              <img src="" alt="img" class="w-100 border-radius-lg shadow-sm">
+              <img src="data:image;base64,<?php echo base64_encode($foto_persona);  ?>" alt="img" class="w-100 border-radius-lg shadow-sm">
             </div>
           </div>
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                Nombre turísta
+                <?php echo $nombre_persona; ?>
+                <?php echo $apellido_persona; ?>
               </h5>
               <p class="mb-0 font-weight-bold text-sm">
                 Turísta
@@ -190,7 +222,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mb-0 px-0 py-1 " href="./updateData.php" role="tab" aria-selected="false">
+                  <a class="nav-link mb-0 px-0 py-1 " href="./updateData.php?id=<?php echo $id_persona; ?>" role="tab" aria-selected="false">
                     <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
@@ -223,7 +255,7 @@
                   <h6 class="mb-0">Datos personales</h6>
                 </div>
                 <div class="col-md-4 text-end">
-                  <a href="./updateData.php">
+                  <a href="./updateData.php?id=<?php echo $id_persona; ?>">
                     <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
                   </a>
                 </div>
@@ -233,23 +265,22 @@
               <hr class="horizontal gray-light my-1">
               <ul class="list-group">
                 <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Nombre:</strong>
-                  David Santiago </li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Apellido:</strong> Reyes
-                  Lasso</li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Edad:</strong> 21 años</li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Género:</strong> Masculino
+                  <?php echo $nombre_persona; ?>
+                </li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Apellido:</strong>
+                  <?php echo $apellido_persona; ?>
+                </li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Edad:</strong>
+                  <?php echo $edad_persona; ?>
+                </li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Género:</strong>
+                  <?php echo $genero_persona; ?>
                 </li>
                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Teléfono:</strong>
-                  3116457948</li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Correo:</strong>
-                  josecamilreyes9@gmail.com
+                  <?php echo $telefono_persona; ?>
                 </li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Cedula:</strong>
-                  123456709</li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mi descripción:</strong>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis tenetur ipsa adipisci incidunt,
-                  numquam laborum qui? Quia repudiandae consequuntur ad. Illo neque veritatis quae doloremque amet rerum
-                  voluptatibus nemo animi?
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Correo:</strong>
+                  <?php echo $correo_persona; ?>
                 </li>
               </ul>
             </div>
@@ -264,7 +295,7 @@
                   <h6 class="mb-0">Más sobre mí</h6>
                 </div>
                 <div class="col-md-4 text-end">
-                  <a href="./updateData.php">
+                  <a href="./updateData.php?id=<?php echo $id_persona; ?>">
                     <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
                   </a>
                 </div>
@@ -273,22 +304,17 @@
             <div class="card-body p-3">
               <hr class="horizontal gray-light my-1">
               <ul class="list-group">
-                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Departamento:</strong>
-                  Nariño </li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Municipio:</strong> Pasto
+                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Nacionalidad:</strong>
+                  <?php echo $nacionalidad_turista; ?>
                 </li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Dirección:</strong> Calle 1
-                  #23
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Idioma:</strong>
+                  <?php echo $idioma_turista; ?>
                 </li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Idiomas:</strong> Ingles y
-                  español
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Telefono de emergencia:</strong>
+                  <?php echo $telefono_emergencia_turista; ?>
                 </li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Ocupación:</strong>
-                  Ingeniero</li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mis habilidades:</strong>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis tenetur ipsa adipisci incidunt,
-                  numquam laborum qui? Quia repudiandae consequuntur ad. Illo neque veritatis quae doloremque amet rerum
-                  voluptatibus nemo animi?
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Número de identidad:</strong>
+                  <?php echo $numero_identidad_turista; ?>
                 </li>
               </ul>
             </div>
@@ -303,7 +329,7 @@
                   <h6 class="mb-0">Seguridad</h6>
                 </div>
                 <div class="col-md-4 text-end">
-                  <a href="./updateData.php">
+                  <a href="./updateData.php?id=<?php echo $id_persona; ?>">
                     <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
                   </a>
                 </div>
@@ -313,7 +339,8 @@
               <hr class="horizontal gray-light my-1">
               <ul class="list-group">
                 <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Mi contraseña:</strong>
-                  12345</li>
+                  <?php echo $contrasena_persona; ?>
+                </li>
               </ul>
             </div>
           </div>

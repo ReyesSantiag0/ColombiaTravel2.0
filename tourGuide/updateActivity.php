@@ -1,7 +1,12 @@
 <?php
 include "../bdColombiaTravel/conexion.php";
-?>
+session_start();
+$correo_persona = $_SESSION['correo_persona'];
 
+$consulta_guia = mysqli_query(conexion(), "SELECT persona.id_persona FROM persona WHERE persona.correo_persona = '$correo_persona'");
+$resultado = mysqli_fetch_array($consulta_guia);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -216,25 +221,13 @@ include "../bdColombiaTravel/conexion.php";
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Sesión guía turístico</span>
               </a>
-              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="../User/homeUser.php">
-                    <div class="d-flex py-1">
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">Modo turista</span>
-                        </h6>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <hr class="horizontal dark my-1">
-                <li class="mb-2">
+              <ul class="dropdown-menu  dropdown-menu-end  px-2 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <li>
                   <a class="dropdown-item border-radius-md" href="../Login/loginUser.html">
-                    <div class="d-flex py-1">
+                    <div class="d-flex">
                       <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold">Cerrar sesión</span>
+                        <h6 class="text-sm ">
+                          Cerrar sesión
                         </h6>
                       </div>
                     </div>
@@ -264,7 +257,7 @@ include "../bdColombiaTravel/conexion.php";
             <div class="card-body p-3">
               <div class="row">
                 <?php
-                $sql = ("SELECT * FROM actividad_turistica JOIN fotos_actividad_turistica WHERE actividad_turistica.id_foto_actividad = fotos_actividad_turistica.id_foto_actividad");
+                $sql = ("SELECT * FROM actividad_turistica JOIN fotos_actividad_turistica JOIN guia_turistico JOIN persona WHERE actividad_turistica.id_foto_actividad = fotos_actividad_turistica.id_foto_actividad AND actividad_turistica.id_guia = guia_turistico.id_guia AND persona.id_persona = guia_turistico.id_persona AND persona.id_persona = $resultado[0]");
                 $query = mysqli_query(conexion(), $sql);
                 $i = 0;
 

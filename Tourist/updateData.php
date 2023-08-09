@@ -1,3 +1,35 @@
+<?php
+include "../bdColombiaTravel/conexion.php";
+session_start();
+
+$id = $_GET['id'];
+
+$correo_persona = $_SESSION['correo_persona'];
+
+$consulta_turista = mysqli_query(conexion(), "SELECT persona.id_persona FROM persona WHERE persona.correo_persona = '$correo_persona'");
+$resultado = mysqli_fetch_array($consulta_turista);
+
+
+$consultabuscar = mysqli_query(conexion(), "SELECT * FROM persona JOIN turista ON persona.id_persona = turista.id_persona WHERE turista.id_persona=$resultado[0]");
+
+while ($mostrar = mysqli_fetch_array($consultabuscar)) {
+  $nombre_persona = $mostrar['nombre_persona'];
+  $apellido_persona = $mostrar['apellido_persona'];
+  $edad_persona = $mostrar['edad_persona'];
+  $genero_persona = $mostrar['genero_persona'];
+  $telefono_persona = $mostrar['telefono_persona'];
+  $correo_persona = $mostrar['correo_persona'];
+  $contrasena_persona = $mostrar['contrasena_persona'];
+  $foto_persona = $mostrar['foto_persona'];
+  $nacionalidad_turista = $mostrar['nacionalidad_turista'];
+  $idioma_turista = $mostrar['idioma_turista'];
+  $telefono_emergencia_turista = $mostrar['telefono_emergencia_turista'];
+  $numero_identidad_turista = $mostrar['numero_identidad_turista'];
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +38,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" type="image/png" href="">
   <title>
-    Home administrador
+    Mis datos
   </title>
   <link rel="icon" type="image/x-icon" href="../img/colombia.png">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -16,6 +48,7 @@
   <link href="../Bootstrap/css/nucleo-svg.css" rel="stylesheet" />
   <link id="pagestyle" href="../Bootstrap/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -59,7 +92,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Mi Perfil</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link active " href="./">
+          <a class="nav-link active " href="./touristData.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -120,7 +153,7 @@
             <li class="nav-item dropdown pe-2 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white font-weight-bold px-0" id=" dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none text-white">Sesión turísta</span>
+                <span class="d-sm-inline d-none text-white">Sesión turista</span>
               </a>
               <ul class="dropdown-menu  dropdown-menu-end  px-2 me-sm-n4" aria-labelledby="dropdownMenuButton">
                 <li>
@@ -153,16 +186,17 @@
         <div class="row gx-4">
           <div class="col-auto">
             <div class="avatar avatar-xl position-relative">
-              <img src="" alt="img" class="w-100 border-radius-lg shadow-sm">
+              <img src="data:image;base64,<?php echo base64_encode($foto_persona);  ?>" alt="img" class="w-100 border-radius-lg shadow-sm">
             </div>
           </div>
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                Nombre turísta
+                <?php echo $nombre_persona; ?>
+                <?php echo $apellido_persona; ?>
               </h5>
               <p class="mb-0 font-weight-bold text-sm">
-                Turísta
+                Turista
               </p>
             </div>
           </div>
@@ -190,7 +224,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mb-0 px-0 py-1 " href="./updateData.php" role="tab" aria-selected="false">
+                  <a class="nav-link mb-0 px-0 py-1 " href="./updateData.php?id=<?php echo $id_persona; ?>" role="tab" aria-selected="false">
                     <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
@@ -215,113 +249,94 @@
     </div>
 
     <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-12 mt-4">
-          <div class="card mb-4">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-12 col-xl-4">
-                  <div class="card h-100">
-                    <div class="card-header pb-0 p-3">
-                      <h6 class="mb-0">Datos personales</h6>
-                    </div>
-                    <div class="card-body p-3">
-                      <div class="form-group">
-                        <label>Nombres</label>
-                        <input type="text" class="form-control" placeholder="Nombres" id="" name="">
+      <form method="POST" enctype="multipart/form-data">
+        <div class="row">
+          <div class="col-12 mt-4">
+            <div class="card mb-4">
+              <div class="card-body p-3">
+                <div class="row">
+                  <div class="col-12 col-xl-4">
+                    <div class="card h-100">
+                      <div class="card-header pb-0 p-3">
+                        <h6 class="mb-0">Datos personales</h6>
                       </div>
-                      <div class="form-group">
-                        <label>Apellidos</label>
-                        <input type="text" class="form-control" placeholder="Apellidos" id="" name="">
-                      </div>
-                      <div class="form-group">
-                        <label>Edad</label>
-                        <input type="number" class="form-control" placeholder="30" id="" name="">
-                      </div>
-                      <div class="form-group">
-                        <label>Género</label>
-                        <select class="form-select form-select" aria-label=".form-select-sm example">
-                          <option selected disabled>Género</option>
-                          <option value="1">Masculino</option>
-                          <option value="2">Femenino</option>
-                          <option value="3">Otro</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label>Teléfono</label>
-                        <input type="number" class="form-control" placeholder="3006457000" id="" name="">
-                      </div>
-                      <div class="form-group">
-                        <label>Correo</label>
-                        <input type="email" class="form-control" placeholder="correo@gmail.com" id="" name="">
-                      </div>
-                      <div class="form-group">
-                        <label>Cedula</label>
-                        <input type="email" class="form-control" placeholder="1234567890" id="" name="">
-                      </div>
-                      <div class="form-group">
-                        <label>Mi descripción</label>
-                        <textarea name="" id="" rows="5" class="form-control" style="resize: none; outline: none;"></textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-xl-4">
-                  <div class="card h-100">
-                    <div class="card-header pb-0 p-3">
-                      <div class="row">
-                        <div class="col-md-8 d-flex align-items-center">
-                          <h6 class="mb-0">Más sobre ti</h6>
+                      <div class="card-body p-3">
+                        <div class="form-group">
+                          <label>Nombres</label>
+                          <input type="text" class="form-control" placeholder="" id="nombre_persona" name="nombre_persona" value="<?php echo $nombre_persona; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Apellidos</label>
+                          <input type="text" class="form-control" placeholder="" id="apellido_persona" name="apellido_persona" value="<?php echo $apellido_persona; ?>">
+                        </div>
+                        <div class=" form-group">
+                          <label>Edad</label>
+                          <input type="text" class="form-control" placeholder="" id="edad_persona" name="edad_persona" value="<?php echo $edad_persona; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Género</label>
+                          <select class="form-select" id="genero_persona" name="genero_persona" required>
+                            <option value="" disabled selected>Género</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="Otro">Otro</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label>Teléfono</label>
+                          <input type="" class="form-control" placeholder="" id="telefono_persona" name="telefono_persona" value="<?php echo $telefono_persona; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Correo</label>
+                          <input type="email" class="form-control" placeholder="" id="correo_persona" name="correo_persona" value="<?php echo $correo_persona; ?>">
                         </div>
                       </div>
                     </div>
-                    <div class="card-body p-3">
-                      <div class="form-group">
-                        <label>Departamento</label>
-                        <input type="text" class="form-control" placeholder="Nariño" id="" name="">
+                  </div>
+                  <div class="col-12 col-xl-4">
+                    <div class="card h-100">
+                      <div class="card-header pb-0 p-3">
+                        <div class="row">
+                          <div class="col-md-8 d-flex align-items-center">
+                            <h6 class="mb-0">Más sobre ti</h6>
+                          </div>
+                        </div>
                       </div>
-                      <div class="form-group">
-                        <label>Municipio</label>
-                        <input type="text" class="form-control" placeholder="Pasto" id="" name="">
-                      </div>
-                      <div class="form-group">
-                        <label>Dirección</label>
-                        <input type="text" class="form-control" placeholder="Calle Leonardo da Vinci, 7, 41092" id="" name="">
-                      </div>
-                      <div class="form-group">
-                        <label>Idioma(s)</label>
-                        <input type="text" class="form-control" placeholder="Pasto" id="" name="">
-                      </div>
-                      <div class="form-group">
-                        <label>Departamento</label>
-                        <input type="text" class="form-control" placeholder="Nariño" id="" name="">
-                      </div>
-                      <div class="form-group">
-                        <label>Ocupación</label>
-                        <input type="email" class="form-control" placeholder="Pasto" id="" name="">
-                      </div>
-                      <div class="form-group">
-                        <label>Cuáles son tus habilidades</label>
-                        <textarea name="" id="" rows="5" class="form-control" style="resize: none; outline: none;"></textarea>
-                      </div>
-                      <div class="form-group">
-                        <label>Fotografía</label>
-                        <input type="file" class="form-control" placeholder="Nariño" id="" name="">
+                      <div class="card-body p-3">
+                        <div class="form-group">
+                          <label>Nacionalidad</label>
+                          <input type="text" class="form-control" placeholder="" id="nacionalidad_turista" name="nacionalidad_turista" value="<?php echo $nacionalidad_turista; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Idiomas</label>
+                          <input type="text" class="form-control" placeholder="" id="idioma_turista" name="idioma_turista" value="<?php echo $idioma_turista; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Telefono de emergencia</label>
+                          <input type="number" class="form-control" placeholder="" id="telefono_emergencia_turista" name="telefono_emergencia_turista" value="<?php echo $telefono_emergencia_turista; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Número de identidad</label>
+                          <input type="number" class="form-control" placeholder="" id="numero_identidad_turista" name="numero_identidad_turista" value="<?php echo $numero_identidad_turista; ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Fotografía</label>
+                          <input type="file" class="form-control" placeholder="" id="foto_persona" name="foto_persona" required>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-12 col-xl-4">
-                  <div class="card h-100">
-                    <div class="card-header pb-0 p-3">
-                      <h6 class="mb-0">Seguridad</h6>
-                    </div>
-                    <div class="card-body p-3">
-                      <div class="form-group">
-                        <label>Contraseña Actual</label>
-                        <input type="text" class="form-control" placeholder="" id="" name="">
+                  <div class="col-12 col-xl-4">
+                    <div class="card h-100">
+                      <div class="card-header pb-0 p-3">
+                        <h6 class="mb-0">Seguridad</h6>
                       </div>
-                      <h6 class="text-uppercase text-body text-xs font-weight-bolder">Cambiar contraseña</h6>
+                      <div class="card-body p-3">
+                        <div class="form-group">
+                          <label>Contraseña Actual</label>
+                          <input type="text" class="form-control" placeholder="" id="contrasena_persona" name="contrasena_persona" value="<?php echo $contrasena_persona; ?>">
+                        </div>
+                        <!-- <h6 class="text-uppercase text-body text-xs font-weight-bolder">Cambiar contraseña</h6>
                       <div class="form-group">
                         <label>Contraseña nueva</label>
                         <input type="text" class="form-control" placeholder="" id="" name="">
@@ -329,18 +344,19 @@
                       <div class="form-group">
                         <label>Repetir contraseña nueva</label>
                         <input type="text" class="form-control" placeholder="" id="" name="">
+                      </div> -->
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                  <a class="btn btn-sm bg-gradient-primary mt-3 w-15" href="">Actualizar</a>
+                  <div class="row d-flex justify-content-center align-items-center h-100">
+                    <button class="btn btn-sm bg-gradient-primary mt-3 w-15" type="submit" name="btnmodificar">Actualizar</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
 
 
@@ -452,3 +468,85 @@
 </body>
 
 </html>
+
+
+
+
+<?php
+
+if (isset($_POST['btnmodificar'])) {
+  $nombre_persona_update = $_POST['nombre_persona'];
+  $apellido_persona_update = $_POST['apellido_persona'];
+  $edad_persona_update = $_POST['edad_persona'];
+  $genero_persona_update = $_POST['genero_persona'];
+  $telefono_persona_update = $_POST['telefono_persona'];
+  $correo_persona_update = $_POST['correo_persona'];
+  $contrasena_persona_update = $_POST['contrasena_persona'];
+  $nacionalidad_turista_update = $_POST['nacionalidad_turista'];
+  $idioma_turista_update = $_POST['idioma_turista'];
+  $telefono_emergencia_turista_update = $_POST['telefono_emergencia_turista'];
+  $numero_identidad_turista_update = $_POST['numero_identidad_turista'];
+
+  //variables donde se almacenan los valores de nuestra imagen
+  $tamanoArchvio = $_FILES['foto_persona']['size'];
+
+  //se realiza la lectura de la imagen
+  $imagenSubida = fopen($_FILES['foto_persona']['tmp_name'], 'r');
+  $binariosImagen = fread($imagenSubida, $tamanoArchvio);
+
+  //se realiza la consulta correspondiente para guardar los datos
+  $foto_persona_update = mysqli_escape_string(conexion(), $binariosImagen);
+
+
+  $querymodificar = mysqli_query(
+    conexion(),
+    "UPDATE persona 
+      SET nombre_persona = '$nombre_persona_update',
+          apellido_persona = '$apellido_persona_update',
+          edad_persona = '$edad_persona_update',
+          genero_persona = '$genero_persona_update',
+          telefono_persona = '$telefono_persona_update',
+          correo_persona = '$correo_persona_update',
+          contrasena_persona = '$contrasena_persona_update',
+          foto_persona = '$foto_persona_update'
+      WHERE id_persona = $id"
+  );
+
+
+  $querymodificar_turista = mysqli_query(
+    conexion(),
+    "UPDATE turista 
+      SET nacionalidad_turista = '$nacionalidad_turista_update',
+      idioma_turista = '$idioma_turista_update',
+      telefono_emergencia_turista = '$telefono_emergencia_turista_update',
+      numero_identidad_turista = '$numero_identidad_turista_update'
+      WHERE id_persona = $id"
+  );
+
+  if ($querymodificar_turista) {
+?>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: 'Muy bien!!!',
+        text: 'Datos actualizados',
+      }).then(function() {
+        window.location = "./touristData.php";
+      });
+    </script>
+  <?php
+  } else {
+  ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al actualizar',
+      }).then(function() {
+        window.location = "./touristData.php";
+      });
+    </script>
+<?php
+  }
+}
+?>
