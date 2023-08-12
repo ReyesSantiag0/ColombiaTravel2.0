@@ -287,7 +287,7 @@ $resultado = mysqli_fetch_array($consulta_guia);
                       $nombre_actividad = $dato['nombre_actividad'];
 
                       $id_actividad = $dato['id_actividad'];
-                      $id_pago = $dato['id_pago'];
+                      $id_persona = $dato['id_persona'];
                     ?>
                       <tr>
                         <td>
@@ -310,7 +310,7 @@ $resultado = mysqli_fetch_array($consulta_guia);
                           </div>
                         </td>
                         <td>
-                          <a href="./viewTours.php?id_pago=<?php echo $dato['id_pago'] ?>" class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> <i class="far fa-regular fa-eye me-2"></i>
+                          <a href="./viewTours.php?id_persona=<?php echo $dato['id_persona'] ?>" class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> <i class="far fa-regular fa-eye me-2"></i>
                             Visualizar
                           </a>
                         </td>

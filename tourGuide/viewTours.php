@@ -2,12 +2,28 @@
 include "../bdColombiaTravel/conexion.php";
 session_start();
 
+$id_persona = $_GET['id_persona'];
 
-$correo_persona = $_SESSION['correo_persona'];
+$sql = ("SELECT * FROM actividad_turistica JOIN pago JOIN turista JOIN fotos_actividad_turistica JOIN guia_turistico JOIN persona WHERE pago.id_actividad = actividad_turistica.id_actividad AND pago.id_turista = turista.id_turista AND actividad_turistica.id_foto_actividad = fotos_actividad_turistica.id_foto_actividad AND actividad_turistica.id_guia = guia_turistico.id_guia AND persona.id_persona = turista.id_persona AND persona.id_persona =  $id_persona");
+$query = mysqli_query(conexion(), $sql);
+$i = 0;
 
-$consulta_guia = mysqli_query(conexion(), "SELECT guia_turistico.id_guia FROM guia_turistico JOIN persona WHERE persona.id_persona = guia_turistico.id_persona AND persona.correo_persona = '$correo_persona'");
-$resultado = mysqli_fetch_array($consulta_guia);
-
+while ($dato = mysqli_fetch_array($query)) {
+  $i++;
+  $nombre_persona = $dato['nombre_persona'];
+  $apellido_persona = $dato['apellido_persona'];
+  $edad_persona = $dato['edad_persona'];
+  $genero_persona = $dato['genero_persona'];
+  $telefono_persona = $dato['telefono_persona'];
+  $correo_persona = $dato['correo_persona'];
+  $foto_persona = $dato['foto_persona'];
+  $nacionalidad_turista = $dato['nacionalidad_turista'];
+  $idioma_turista = $dato['idioma_turista'];
+  $telefono_emergencia_turista = $dato['telefono_emergencia_turista'];
+  $numero_identidad_turista = $dato['numero_identidad_turista'];
+  $nombre_actividad = $dato['nombre_actividad'];
+  $ubicacion_actividad = $dato['ubicacion_actividad'];
+}
 ?>
 
 
@@ -251,89 +267,153 @@ $resultado = mysqli_fetch_array($consulta_guia);
       </div>
     </nav>
 
-    <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-12">
-          <div class="card mb-4">
-            <div class="card-header pb-0">
-              <h6>Actividades turísticas</h6>
-            </div>
-
-            <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0 py-3">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Información
-                      </th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        Acción
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    $sql = ("SELECT * FROM actividad_turistica JOIN pago JOIN turista JOIN fotos_actividad_turistica JOIN guia_turistico JOIN persona WHERE pago.id_actividad = actividad_turistica.id_actividad AND pago.id_turista = turista.id_turista AND actividad_turistica.id_foto_actividad = fotos_actividad_turistica.id_foto_actividad AND actividad_turistica.id_guia = guia_turistico.id_guia AND persona.id_persona = turista.id_persona AND guia_turistico.id_guia  =  $resultado[0]");
-                    $query = mysqli_query(conexion(), $sql);
-                    $i = 0;
-
-                    while ($dato = mysqli_fetch_array($query)) {
-                      $i++;
-                      $nombre_turista = $dato['nombre_persona'];
-                      $apellido_turista = $dato['apellido_persona'];
-                      $foto_persona = $dato['foto_persona'];
-                      $correo_persona = $dato['correo_persona'];
-                      $nombre_actividad = $dato['nombre_actividad'];
-
-                      $id_actividad = $dato['id_actividad'];
-                      $id_pago = $dato['id_pago'];
-                    ?>
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div>
-                              <img src="data:image;base64,<?php echo base64_encode($foto_persona);  ?>" class="avatar avatar-sm me-3" alt="img administrador">
-                            </div>
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">
-                                <?php echo $nombre_turista; ?>
-                                <?php echo $apellido_turista; ?>
-                              </h6>
-                              <p class="text-xs text-secondary mb-0">
-                                <?php echo $correo_persona; ?>
-                              </p>
-                              <p class="text-xs text-secondary mb-0">
-                                <?php echo $nombre_actividad; ?>
-                              </p>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <a href="./activityUser.php?id_actividad=<?php echo $dato['id_actividad'] ?>" class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> <i class="far fa-regular fa-eye me-2"></i>
-                            Visualizar
-                          </a>
-                        </td>
-
-                        <td class="align-middle text-center text-sm">
-                          <a href="./SentenceEliminateActivityPay.php?id_pago=<?php echo $dato['id_pago'] ?>" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> <i class="far fa-trash-alt me-2"></i>
-                            Cancelar
-                          </a>
-                        </td>
-                      </tr>
-                    <?php
-                    }
-                    ?>
-                  </tbody>
-                </table>
+    <div class="container-fluid">
+      <div class="page-header min-height-200 border-radius-xl">
+        <div class="card card-body blur shadow-blur mt-n4 overflow-hidden">
+          <div class="row gx-4">
+            <div class="col-auto">
+              <div class="avatar avatar-xl position-relative">
+                <img src="data:image;base64,<?php echo base64_encode($foto_persona);  ?>" alt="img" class="w-100 border-radius-lg shadow-sm">
               </div>
             </div>
-
+            <div class="col-auto my-auto">
+              <div class="h-100">
+                <h5 class="mb-1">
+                  <?php echo $nombre_persona; ?>
+                </h5>
+                <p class="mb-0 font-weight-bold text-sm">
+                  Turista
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
+    <div class="container-fluid">
+      <form method="post" action="">
+        <div class="row">
+          <div class="col-12 col-xl-4">
+            <div class="card h-100">
+              <div class="card-header pb-0 p-3">
+                <div class="row">
+                  <div class="col-md-8 d-flex align-items-center">
+                    <h6 class="mb-0">Datos personales turista</h6>
+                  </div>
+                  <div class="col-md-4 text-end">
+                    <i class="fas fa-user text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Datos turista"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-3">
+                <hr class="horizontal gray-light my-1">
+                <ul class="list-group">
+                  <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Nombre:</strong>
+                    <?php echo $nombre_persona; ?>
+                  </li>
+                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Apellido:</strong> <?php echo $apellido_persona; ?>
+                  </li>
+                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Edad:</strong> <?php echo $edad_persona; ?>
+                  </li>
+                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Género:</strong> <?php echo $genero_persona; ?>
+                  </li>
+                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Teléfono:</strong>
+                    <?php echo $telefono_persona; ?>
+                  </li>
+                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Correo:</strong>
+                    <?php echo $correo_persona; ?>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-xl-4">
+            <div class="card h-100">
+              <div class="card-header pb-0 p-3">
+                <div class="row">
+                  <div class="col-md-8 d-flex align-items-center">
+                    <h6 class="mb-0">Más sobre el turista</h6>
+                  </div>
+                  <div class="col-md-4 text-end">
+                    <i class="fas fa-user text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Datos turista"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-3">
+                <hr class="horizontal gray-light my-1">
+                <ul class="list-group">
+                  <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Nacionalidad:</strong>
+                    <?php echo $nacionalidad_turista; ?>
+                  </li>
+                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Idiomas:</strong>
+                    <?php echo $idioma_turista; ?>
+                  </li>
+                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Teléfono emergencia:</strong>
+                    <?php echo $telefono_emergencia_turista; ?>
+                  </li>
+                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Número de identidad:</strong>
+                    <?php echo $numero_identidad_turista; ?>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-xl-4">
+            <div class="card h-100">
+              <div class="card-header pb-0 p-3">
+                <div class="row">
+                  <div class="col-md-8 d-flex align-items-center">
+                    <h6 class="mb-0">Información actividad elegida</h6>
+                  </div>
+                  <div class="col-md-4 text-end">
+                    <i class="fas fa-user text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Información actividad turistica"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-3">
+                <hr class="horizontal gray-light my-1">
+                <ul class="list-group">
+                  <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Nombre actividad:</strong>
+                    <?php echo $nombre_actividad; ?>
+                  </li>
+                  <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Ubicación actividad:</strong>
+                    <?php echo $ubicacion_actividad; ?>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-lg-0 mb-4">
+            <div class="card mt-4">
+              <div class="card-header pb-0 p-3">
+                <div class="row">
+                  <div class="col-6 d-flex align-items-center">
+                    <h6 class="mb-0">Confirmación</h6>
+                  </div>
+                  <div class="col-6 text-end">
+                    <a class="btn bg-gradient-primary mb-0" href="">Confirmar actividad</a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-3">
+                <div class="row">
+                  <div class="col-md-12 mb-md-0 mb-4">
+                    <div class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
+                      <p class="mb-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde repellat ipsam iure
+                        fuga laboriosam mollitia. Perferendis cumque, tenetur, vero porro excepturi veniam reiciendis
+                        doloribus, consectetur numquam suscipit nulla deleniti sed.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
 
     <footer class="footer pt-3  ">
       <div class="container-fluid">
