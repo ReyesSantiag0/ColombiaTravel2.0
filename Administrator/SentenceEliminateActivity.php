@@ -32,7 +32,7 @@ if ($resultado) {
     Swal.fire({
       icon: 'success',
       title: 'Exito!!',
-      text: 'Administrador Eliminado',
+      text: 'Actividad eliminada',
     }).then(function() {
       window.location = "./homeAdministrator.php";
     });
@@ -44,7 +44,7 @@ if ($resultado) {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: 'No fué posible eliminar el administrador',
+      text: 'No fue posible eliminar la actividad',
     }).then(function() {
       window.location = "./homeAdministrator.php";
     });

@@ -43,7 +43,7 @@ if ($resultado) {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: 'No fué posible eliminar el administrador',
+      text: 'No fue posible eliminar el administrador',
     }).then(function() {
       window.location = "./administrators.php";
     });

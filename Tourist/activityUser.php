@@ -38,7 +38,7 @@ while ($dato = mysqli_fetch_array($query)) {
   $apellido_persona_guia = $dato['apellido_persona'];
   $correo_persona_guia = $dato['correo_persona'];
   $telefono_persona_guia = $dato['telefono_persona'];
-  $foto_persona = $dato['foto_persona'];
+  $foto_persona_guia = $dato['foto_persona'];
   $descripcion_guia = $dato['descripcion_guia'];
 }
 
@@ -257,7 +257,7 @@ while ($mostrar = mysqli_fetch_array($consultabuscar)) {
             <div class="pb-2 border-bottom py-5">
 
               <div class="avatar avatar-xl position-relative">
-                <img src="data:image;base64,<?php echo base64_encode($foto_persona);  ?>" alt="img" class="w-100 border-radius-lg shadow-sm">
+                <img src="data:image;base64,<?php echo base64_encode($foto_persona_guia);  ?>" alt="img" class="w-100 border-radius-lg shadow-sm">
               </div>
 
               <h5 class="fw-normal">
@@ -502,7 +502,7 @@ if (!empty($_POST)) {
       <script>
         Swal.fire({
           icon: 'success',
-          title: 'Reservción exitosa!',
+          title: 'Reservación exitosa!',
           text: 'Pronto nos comunicaremos contigo',
         }).then(function() {
           window.location = "./homeUser.php";
@@ -515,7 +515,7 @@ if (!empty($_POST)) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'No fué posible realizar la reserva',
+          text: 'No fue posible realizar la reserva',
         }).then(function() {
           window.location = "./homeUser.php";
         });

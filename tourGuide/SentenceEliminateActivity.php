@@ -43,7 +43,7 @@ if ($resultado) {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: 'No fué posible registrar la actividad',
+      text: 'No fue posible registrar la actividad',
     }).then(function() {
       window.location = "./deleteActivity.php";
     });

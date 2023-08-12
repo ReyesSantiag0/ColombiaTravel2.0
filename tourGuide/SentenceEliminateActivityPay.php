@@ -32,7 +32,7 @@ if ($resultado) {
     Swal.fire({
       icon: 'success',
       title: 'Exito!!',
-      text: 'Administrador Eliminado',
+      text: 'Reserva eliminada',
     }).then(function() {
       window.location = "./tours.php";
     });
@@ -44,7 +44,7 @@ if ($resultado) {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: 'No fué posible eliminar el administrador',
+      text: 'No fue posible cancelar la reserva',
     }).then(function() {
       window.location = "./tours.php";
     });

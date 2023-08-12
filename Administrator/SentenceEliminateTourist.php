@@ -31,7 +31,7 @@ if ($resultado) {
     Swal.fire({
       icon: 'success',
       title: 'Exito!!',
-      text: 'Administrador Eliminado',
+      text: 'Turista eliminado',
     }).then(function() {
       window.location = "./touristAdministrator.php";
     });
@@ -43,7 +43,7 @@ if ($resultado) {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: 'No fué posible eliminar el administrador',
+      text: 'No fue posible eliminar al turista',
     }).then(function() {
       window.location = "./administrators.php";
     });

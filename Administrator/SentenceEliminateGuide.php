@@ -37,7 +37,7 @@ if ($eliminar_guia) {
     Swal.fire({
       icon: 'success',
       title: 'Exito!!',
-      text: 'Administrador Eliminado',
+      text: 'Guía turístico eliminado',
     }).then(function() {
       window.location = "./homeAdministrator.php";
     });
@@ -49,7 +49,7 @@ if ($eliminar_guia) {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: 'No fué posible eliminar el administrador',
+      text: 'No fue posible eliminar al guía turístico',
     }).then(function() {
       window.location = "./homeAdministrator.php";
     });

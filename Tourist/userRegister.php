@@ -155,7 +155,13 @@ if (!empty($_POST)) {
         if ($query_insert_turista) {
         ?>
           <script>
-            Swal.fire('Usuario creado correctamente')
+            Swal.fire({
+              icon: 'success',
+              title: 'Exito!!',
+              text: 'Registro exitoso',
+            }).then(function() {
+              window.location = "../Login/loginUser.html";
+            });
           </script>
         <?php
         } else {
@@ -164,8 +170,10 @@ if (!empty($_POST)) {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: 'No fué posible crear el usuario',
-            })
+              text: 'Registro inválido',
+            }).then(function() {
+              window.location = "../Login/loginUser.html";
+            });
           </script>
 <?php
         }
