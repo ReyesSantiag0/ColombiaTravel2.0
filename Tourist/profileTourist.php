@@ -1,3 +1,17 @@
+<?php
+include "../bdColombiaTravel/conexion.php";
+session_start();
+
+
+$correo_persona = $_SESSION['correo_persona'];
+
+$consulta_turista = mysqli_query(conexion(), "SELECT turista.id_turista FROM turista JOIN persona WHERE persona.id_persona = turista.id_persona AND persona.correo_persona = '$correo_persona'");
+$resultado = mysqli_fetch_array($consulta_turista);
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -153,8 +167,9 @@
             <div class="card-header pb-0">
               <h6>Actividades turísticas</h6>
             </div>
+
             <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
+              <div class="table-responsive p-0 py-3">
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
@@ -167,71 +182,93 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="" class="avatar avatar-sm me-3" alt="img guia">
+                    <?php
+                    $sql = ("SELECT * FROM actividad_turistica JOIN pago JOIN turista JOIN fotos_actividad_turistica WHERE pago.id_actividad = actividad_turistica.id_actividad AND pago.id_turista = turista.id_turista AND actividad_turistica.id_foto_actividad = fotos_actividad_turistica.id_foto_actividad AND turista.id_turista = $resultado[0]");
+                    $query = mysqli_query(conexion(), $sql);
+                    $i = 0;
+
+                    while ($dato = mysqli_fetch_array($query)) {
+                      $i++;
+                      $nombre_actividad = $dato['nombre_actividad'];
+                      $ubicacion_actividad = $dato['ubicacion_actividad'];
+                      $foto_actividad = $dato['foto01_actividad'];
+                      $id_actividad = $dato['id_actividad'];
+                      $id_pago = $dato['id_pago'];
+                    ?>
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2 py-1">
+                            <div>
+                              <img src="data:image;base64,<?php echo base64_encode($foto_actividad);  ?>" class="avatar avatar-sm me-3" alt="img administrador">
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">
+                                <?php echo $nombre_actividad; ?>
+                              </h6>
+                              <p class="text-xs text-secondary mb-0">
+                                <?php echo $ubicacion_actividad; ?>
+                              </p>
+                            </div>
                           </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Nombre actividad turística</h6>
-                            <p class="text-xs text-secondary mb-0">Ubicación</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <a href="./profileTourist.php" class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> <i class="far fa-regular fa-eye me-2"></i>
-                          Visualizar
-                        </a>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <a href="javascript:;" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> <i class="far fa-trash-alt me-2"></i>
-                          Eliminar
-                        </a>
-                      </td>
-                    </tr>
+                        </td>
+                        <td>
+                          <a href="./activityUser.php?id_actividad=<?php echo $dato['id_actividad'] ?>" class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> <i class="far fa-regular fa-eye me-2"></i>
+                            Visualizar
+                          </a>
+                        </td>
+
+                        <td class="align-middle text-center text-sm">
+                          <a href="./SentenceEliminateActivityPay.php?id_pago=<?php echo $dato['id_pago'] ?>" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> <i class="far fa-trash-alt me-2"></i>
+                            Cancelar
+                          </a>
+                        </td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
                   </tbody>
                 </table>
               </div>
             </div>
+
           </div>
         </div>
       </div>
+    </div>
 
-      <footer class="footer pt-3  ">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-start">
-                ©
-                <script>
-                  document.write(new Date().getFullYear())
-                </script>,
-                Desarrollado por
-                <a href="" class="font-weight-bold" target="_blank">Santiago Reyes.</a>
-                Todos los derechos reservados
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                <li class="nav-item">
-                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link pe-0 text-muted" target="_blank">Información</a>
-                </li>
-              </ul>
+    <footer class="footer pt-3  ">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-start">
+              ©
+              <script>
+                document.write(new Date().getFullYear())
+              </script>,
+              Desarrollado por
+              <a href="" class="font-weight-bold" target="_blank">Santiago Reyes.</a>
+              Todos los derechos reservados
             </div>
           </div>
+          <div class="col-lg-6">
+            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+              <li class="nav-item">
+                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link pe-0 text-muted" target="_blank">Información</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   </main>
 
 

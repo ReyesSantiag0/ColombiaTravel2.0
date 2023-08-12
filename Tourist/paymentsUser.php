@@ -114,13 +114,8 @@
     </div>
   </div>
 
-  <footer>
-    <?php
-    require_once("../footer/footer.php");
-    ?>
-  </footer>
 
-  <script type="text/javascript" src="../Bootstrap/js/bootstrap.min.js"></script>
+
 
 </body>
 

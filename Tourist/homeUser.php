@@ -151,7 +151,6 @@
     <div class="container py-2 px-3 border-bottom">
       <div id="custom-cards">
         <h2 class="pb-2 border-bottom">
-          Catálogo
         </h2>
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
           <?php
@@ -211,40 +210,38 @@
       </div>
     </div>
 
-    <footer>
-      <footer class="footer pt-3">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-start">
-                ©
-                <script>
-                  document.write(new Date().getFullYear())
-                </script>,
-                Desarrollado por
-                <a href="" class="font-weight-bold" target="_blank">Santiago Reyes.</a>
-                Todos los derechos reservados
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                <li class="nav-item">
-                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link text-muted" target="_blank">Información</a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link pe-0 text-muted" target="_blank">Información</a>
-                </li>
-              </ul>
+    <footer class="footer pt-3">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-start">
+              ©
+              <script>
+                document.write(new Date().getFullYear())
+              </script>,
+              Desarrollado por
+              <a href="" class="font-weight-bold" target="_blank">Santiago Reyes.</a>
+              Todos los derechos reservados
             </div>
           </div>
+          <div class="col-lg-6">
+            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+              <li class="nav-item">
+                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link pe-0 text-muted" target="_blank">Información</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </footer>
+      </div>
     </footer>
 
     <script src="../Bootstrap/js/popper.min.js"></script>

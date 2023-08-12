@@ -1,7 +1,10 @@
 <?php
 include "../bdColombiaTravel/conexion.php";
 session_start();
+
 $id_actividad = $_GET['id_actividad'];
+
+$correo_persona = $_SESSION['correo_persona'];
 
 
 $sql = ("SELECT * FROM actividad_turistica  JOIN guia_turistico  JOIN persona  JOIN fotos_actividad_turistica WHERE persona.id_persona = guia_turistico.id_persona  AND actividad_turistica.id_guia = guia_turistico.id_guia AND actividad_turistica.id_foto_actividad = fotos_actividad_turistica.id_foto_actividad AND actividad_turistica.id_actividad = '$id_actividad'");
@@ -28,12 +31,36 @@ while ($dato = mysqli_fetch_array($query)) {
   $foto04_actividad = $dato['foto04_actividad'];
   $foto05_actividad = $dato['foto05_actividad'];
 
+  $id_actividad_pago = $dato['id_actividad'];
 
-  $nombre_persona = $dato['nombre_persona'];
-  $apellido_persona = $dato['apellido_persona'];
+
+  $nombre_persona_guia = $dato['nombre_persona'];
+  $apellido_persona_guia = $dato['apellido_persona'];
+  $correo_persona_guia = $dato['correo_persona'];
+  $telefono_persona_guia = $dato['telefono_persona'];
   $foto_persona = $dato['foto_persona'];
-
   $descripcion_guia = $dato['descripcion_guia'];
+}
+
+$consulta_turista = mysqli_query(conexion(), "SELECT persona.id_persona FROM persona WHERE persona.correo_persona = '$correo_persona'");
+$resultado = mysqli_fetch_array($consulta_turista);
+
+$consultabuscar = mysqli_query(conexion(), "SELECT * FROM persona JOIN turista ON persona.id_persona = turista.id_persona WHERE turista.id_persona=$resultado[0]");
+
+while ($mostrar = mysqli_fetch_array($consultabuscar)) {
+  $nombre_persona_turista = $mostrar['nombre_persona'];
+  $apellido_persona_turista = $mostrar['apellido_persona'];
+  $edad_persona = $mostrar['edad_persona'];
+  $genero_persona = $mostrar['genero_persona'];
+  $telefono_persona_turista = $mostrar['telefono_persona'];
+  $correo_persona_turista = $mostrar['correo_persona'];
+  $contrasena_persona = $mostrar['contrasena_persona'];
+  $foto_persona = $mostrar['foto_persona'];
+  $nacionalidad_turista = $mostrar['nacionalidad_turista'];
+  $idioma_turista = $mostrar['idioma_turista'];
+  $telefono_emergencia_turista = $mostrar['telefono_emergencia_turista'];
+  $numero_identidad_turista = $mostrar['numero_identidad_turista'];
+  $id_turista = $mostrar['id_turista'];
 }
 ?>
 
@@ -55,6 +82,7 @@ while ($dato = mysqli_fetch_array($query)) {
   <link href="../Bootstrap/css/nucleo-svg.css" rel="stylesheet" />
   <link id="pagestyle" href="../Bootstrap/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -130,7 +158,8 @@ while ($dato = mysqli_fetch_array($query)) {
           <?php echo $nombre_actividad; ?>
         </h2>
         <h6>
-          📍<?php echo $ubicacion_actividad; ?>
+          📍
+          <?php echo $ubicacion_actividad; ?>
         </h6>
 
         <!-- Modal gallery -->
@@ -232,8 +261,8 @@ while ($dato = mysqli_fetch_array($query)) {
               </div>
 
               <h5 class="fw-normal">
-                <?php echo $nombre_persona; ?>
-                <?php echo $apellido_persona; ?>
+                <?php echo $nombre_persona_guia; ?>
+                <?php echo $apellido_persona_guia; ?>
               </h5>
               <p>
                 <?php echo $descripcion_guia; ?>
@@ -261,16 +290,18 @@ while ($dato = mysqli_fetch_array($query)) {
                     </small>
                   </div>
                   <span class="text-primary">
-                    $ <?php echo $precio_actividad; ?>
+                    $
+                    <?php echo $precio_actividad; ?>
                   </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Total</span>
-                  <strong>$ <?php echo $precio_actividad; ?>
+                  <strong>$
+                    <?php echo $precio_actividad; ?>
                   </strong>
                 </li>
                 <div class="pt-1 mb-4 d-grid">
-                  <a class="btn bg-gradient-primary btn-block" type="submit" href="./paymentsUser.php">Elegir</a>
+                  <a class="btn bg-gradient-primary btn-block" type="submit" data-bs-toggle="modal" data-bs-target="#payments">Elegir</a>
                 </div>
               </ul>
             </div>
@@ -333,3 +364,164 @@ while ($dato = mysqli_fetch_array($query)) {
 </body>
 
 </html>
+
+
+<!-- Modal -->
+<div class="modal fade" id="payments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header p-5 pb-0 border-bottom-0 py-0">
+        <!-- <h1 class="fw-bold mb-0 fs-2 p-5">Formulario de pago</h1> -->
+        <h3 class="mb-0 fs-0 p-5">Formulario de pago</h3>
+        <button type="button" class="btn-close btn-primary" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-5 pt-0">
+        <form class="needs-validation" method="post">
+          <h4 class="mb-3">Datos personales</h4>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">Nombres</label>
+              <input type="text" class="form-control" id="nombre_turista_pago" name="nombre_turista_pago" placeholder="" value="<?php echo $nombre_persona_turista; ?>" required>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Apellidos</label>
+              <input type="text" class="form-control" id="apellido_turista_pago" name="apellido_turista_pago" placeholder="" value="<?php echo $apellido_persona_turista; ?>" required>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="pais" class="form-label">Nacionalidad</label>
+              <input type="text" class="form-control" id="nacionalidad_turista_pago" name="nacionalidad_turista_pago" placeholder="" value="<?php echo $nacionalidad_turista; ?>" required>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="ciudad" class="form-label">Idetificación</label>
+              <input type="number" class="form-control" id="identificacion_turista_pago" name="identificacion_turista_pago" placeholder="" value="<?php echo $numero_identidad_turista; ?>" required>
+            </div>
+
+            <div class="col-12">
+              <label for="username" class="form-label">Correo electrónico</label>
+              <div class="input-group has-validation">
+                <input type="text" class="form-control" id="correo_turista_pago" name="correo_turista_pago" placeholder="" value="<?php echo $correo_persona_turista; ?>" required>
+              </div>
+            </div>
+          </div>
+          <hr class="my-3">
+
+          <h4 class="mb-3">Detalles de la actividad</h4>
+
+          <div class="row gy-3">
+            <div class="col-md-6">
+              <label for="cc-name" class="form-label">Actividad turistica</label>
+              <input type="text" class="form-control" id="nombre_actividad_pago" name="nombre_actividad_pago" placeholder="" value="<?php echo $nombre_actividad; ?>">
+            </div>
+
+            <div class="col-md-6">
+              <label for="cc-number" class="form-label">Ubicación</label>
+              <input type="text" class="form-control" id="ubicacion_actividad_pago" name="ubicacion_actividad_pago" placeholder="" value="<?php echo $ubicacion_actividad; ?>">
+            </div>
+
+            <div class="col-md-6">
+              <label for="dateexp" class="form-label">Fecha</label>
+              <input type="date" class="form-control" id="fecha_actividad_pago" name="fecha_actividad_pago" placeholder="" value="<?php echo $fecha_actividad; ?>">
+            </div>
+
+            <div class="col-md-6">
+              <label for="cvv" class="form-label">Guía turistico</label>
+              <input type="text" class="form-control" id="guia_pago" name="guia_pago" placeholder="" value="<?php echo $nombre_persona_guia;
+                                                                                                            echo " ";
+                                                                                                            echo $apellido_persona_guia ?>">
+            </div>
+
+            <div class="col-md-6">
+              <label for="dateexp" class="form-label">Email guía</label>
+              <input type="email" class="form-control" id="email_guia_pago" name="email_guia_pago" placeholder="" value="<?php echo $correo_persona_guia; ?>">
+            </div>
+
+            <div class="col-md-6">
+              <label for="cvv" class="form-label">Teléfono guía</label>
+              <input type="number" class="form-control" id="telefono_guia_pago" name="telefono_guia_pago" placeholder="" value="<?php echo $telefono_persona_guia; ?>">
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label for="username" class="form-label">Precio total</label>
+            <div class="input-group has-validation">
+              <input type="text" class="form-control" id="precio_actividad_pago" name="precio_actividad_pago" placeholder="" value="<?php echo "$ ";
+                                                                                                                                    echo $precio_actividad; ?>">
+            </div>
+          </div>
+
+          <hr class="my-3">
+          <h4 class="mb-3">Métodos de pago</h4>
+
+          <div class="my-3">
+            <div class="form-check">
+              <input id="check_pago" name="check_pago" type="radio" class="form-check-input" value="1" checked required>
+              <label class="form-check-label" for="credit">Tarjeta Crédito</label>
+            </div>
+            <div class="form-check">
+              <input id="check_pago" name="check_pago" type="radio" class="form-check-input" value="2" required>
+              <label class="form-check-label" for="debit">Pago PSE</label>
+            </div>
+          </div>
+
+          <hr class="my-2">
+          <button class="w-100 btn bg-gradient-primary btn-lg" type="submit">Confirmar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<?php
+
+if (!empty($_POST)) {
+  if (empty($_POST['nombre_turista_pago']) || empty($_POST['apellido_turista_pago']) || empty($_POST['nacionalidad_turista_pago']) || empty($_POST['identificacion_turista_pago']) || empty($_POST['correo_turista_pago']) || empty($_POST['nombre_actividad_pago']) || empty($_POST['ubicacion_actividad_pago']) || empty($_POST['fecha_actividad_pago']) || empty($_POST['guia_pago']) || empty($_POST['email_guia_pago']) || empty($_POST['telefono_guia_pago']) || empty($_POST['precio_actividad_pago'])) {
+?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Todos los campos son obligatorios',
+      })
+    </script>
+    <?php
+  } else {
+
+    $check_pago = $_POST['check_pago'];
+    $fecha_pago = date("d-m-Y h:i:s");
+
+    $query_insert_pay = mysqli_query(conexion(), "INSERT INTO pago (fecha_pago, id_turista, id_actividad, id_metodo_pago) 
+                        VALUES ('$fecha_pago','$id_turista','$id_actividad_pago','$check_pago')");
+
+    if ($query_insert_pay) {
+    ?>
+      <script>
+        Swal.fire({
+          icon: 'success',
+          title: 'Reservción exitosa!',
+          text: 'Pronto nos comunicaremos contigo',
+        }).then(function() {
+          window.location = "./homeUser.php";
+        });
+      </script>
+    <?php
+    } else {
+    ?>
+      <script>
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No fué posible realizar la reserva',
+        }).then(function() {
+          window.location = "./homeUser.php";
+        });
+      </script>
+<?php
+    }
+  }
+}
+?>
