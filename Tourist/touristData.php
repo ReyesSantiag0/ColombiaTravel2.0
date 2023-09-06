@@ -353,7 +353,7 @@ while ($mostrar = mysqli_fetch_array($consultabuscar)) {
                   <h6 class="mb-0">Información</h6>
                 </div>
                 <div class="col-6 text-end">
-                  <a class="btn bg-gradient-primary mb-0" href="">Darte de baja</a>
+                  <a class="btn bg-gradient-primary mb-0" href="./SentenceEliminateTourist.php?id_persona=<?php echo $id_persona; ?>">Darte de baja</a>
                 </div>
               </div>
             </div>
@@ -361,9 +361,8 @@ while ($mostrar = mysqli_fetch_array($consultabuscar)) {
               <div class="row">
                 <div class="col-md-12 mb-md-0 mb-4">
                   <div class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
-                    <p class="mb-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde repellat ipsam iure
-                      fuga laboriosam mollitia. Perferendis cumque, tenetur, vero porro excepturi veniam reiciendis
-                      doloribus, consectetur numquam suscipit nulla deleniti sed.</p>
+                    <p class="mb-0">¿Qué significa esto para ti?
+                      Una vez que tu cuenta se haya eliminado, perderás acceso a tu perfil, historial, preferencias y cualquier información almacenada en nuestra plataforma. Además, ya no recibirás comunicaciones ni actualizaciones de Colombia Travel.</p>
                   </div>
                 </div>
               </div>

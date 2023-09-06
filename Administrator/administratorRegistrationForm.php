@@ -302,23 +302,23 @@
                 document.write(new Date().getFullYear())
               </script>,
               Desarrollado por
-              <a href="" class="font-weight-bold" target="_blank">Santiago Reyes.</a>
+              <a href="" class="font-weight-bold">Santiago Reyes.</a>
               Todos los derechos reservados
             </div>
           </div>
           <div class="col-lg-6">
             <ul class="nav nav-footer justify-content-center justify-content-lg-end">
               <li class="nav-item">
-                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+                <a href="" class="nav-link text-muted">Información</a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+                <a href="" class="nav-link text-muted">Información</a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link text-muted" target="_blank">Información</a>
+                <a href="" class="nav-link text-muted">Información</a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link pe-0 text-muted" target="_blank">Información</a>
+                <a href="" class="nav-link pe-0 text-muted">Información</a>
               </li>
             </ul>
           </div>
@@ -471,7 +471,13 @@ if (!empty($_POST)) {
         if ($query_insert_administrador) {
         ?>
           <script>
-            Swal.fire('Usuario creado correctamente')
+            Swal.fire({
+              icon: 'success',
+              title: 'Exito!!',
+              text: 'Registro exitoso',
+            }).then(function() {
+              window.location = "./administrators.php";
+            });
           </script>
         <?php
         } else {
@@ -480,8 +486,10 @@ if (!empty($_POST)) {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: 'No fué posible crear el usuario',
-            })
+              text: 'Registro inválido',
+            }).then(function() {
+              window.location = "./administrators.php";
+            });
           </script>
 <?php
         }
